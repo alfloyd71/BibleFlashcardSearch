@@ -1,0 +1,263 @@
+{% extends 'bibleflashcardsjs/base-javascript.html' %}
+{% load static %}
+{% block title %}
+{{verse_text}}
+{% endblock %}
+
+{% block description %}
+    <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
+{% endblock description %}
+
+{% block stylehead %}
+<style nonce="{{ request.csp_nonce }}">
+  body{
+    color: white;
+  }
+  #footer{
+    padding-left: 20%;
+  }
+  #main-edit-verses{
+    text-align: center;
+  }
+ 
+  .white-text{
+    color:white;
+  }
+  #button1{
+    margin-top: 1%;
+    border: 1px solid black;
+  }
+  #verse-text{
+    color: #eee;
+  }
+  #main-container{
+    display: block;
+    margin: 0 auto;
+  }
+  
+</style>
+{% endblock %}
+  
+{% block content %}
+
+  {% block navbar %}
+  {% endblock navbar %}
+    
+    <main id="main-edit-verses">
+
+      <article>
+      <form id ="form-flashcards" method = "post" id="bibleFlashCards">
+            {% csrf_token %}
+    
+                    {{ form.verse }}
+                    <button id="button1" class="btn btn-primary">Find Verse</button>
+                    {% if notdefaultbook %}
+                    <p><h3 class="alert alert-info">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
+                    {% else %}
+                    <p><h3 class="alert alert-info"><span id="verse-text">{{ verse_text }}</span></h3></p>
+                    <h2><p id="versereference">{{ versereference }}</p></h2>
+                    {% endif %}
+          
+               
+        <button id="button2" class="btn btn-primary">Save Verse</button>
+        <button id="button3" class="btn btn-primary">Remove All Verses</button>
+      </form>
+    </div>
+  </article>
+  </main>
+    
+
+    
+   
+
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+  
+{% endblock %}
+
+{% block script %}
+  <script nonce="{{ request.csp_nonce }}">
+    let inputarea, verse, reference,verses
+    let buttonflag=false
+    let versesToAppend;let parsedVerses;
+    let myArrayMatchValue;
+    let strmyFlashCards;
+    
+   
+    document.getElementById("button1").onclick = function() {
+      handleButtonClick('button1');
+    };
+    document.getElementById("button2").onclick = function() {
+      handleButtonClick('button2');
+    };
+    document.getElementById("button3").onclick = function() {
+      handleButtonClick('button3');
+    };
+    
+   
+    //document.getElementById("bibleFlashCards").onsubmit=handleSubmit
+    
+    let mycards
+    const preloadQuestions=()=>{
+    
+      mycards = [
+        {question:"And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away.",
+        answer:"Revelation 21:4", box:1},
+        {question:"I can do all things through Christ which strengtheneth me.",
+        answer:"Philippians 4:13 KJV", box:4},
+        {question:"Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
+        answer:"Proverbs 3:5 KJV", box:4},
+        
+    
+    ];
+    }
+  
+  const capitalizeWords=(inputString)=>{
+    return inputString.replace(/\b\w/g, function(match) {
+        return match.toUpperCase();
+    });
+  }
+
+  window.onload = function () {
+    const first_box = document.getElementById("first-box")
+    const second_box = document.getElementById("second-box")
+    const third_box = document.getElementById("third-box")
+    const fourth_box = document.getElementById("fourth-box")
+    const fifth_box = document.getElementById("fifth-box")
+    //let text_verse = document.getElementById("text-verse")
+    //text_verse.value="hello world"
+    preloadQuestions()
+    
+    inputarea=document.getElementById('questions-input-area')
+    verse_text=document.getElementById('verse-text').innerHTML
+    verse=""
+    reference=document.getElementById('versereference').innerHTML
+    
+    versesToAppend=[{'question':'And I stood upon the sand of the sea, and saw a beast rise up out of the sea, having seven heads \
+     and ten horns, and upon his horns ten crowns, and upon his heads the name of blasphemy.','answer':'Revelation 13:1'},
+     {'question':'test question','answer':'answered question',   }]
+    
+   
+    versesToAppend=JSON.parse(localStorage.getItem('bible-flash-cards')) || []
+    mycards=versesToAppend
+   
+    parsedVerses=versesToAppend// converts versesToAppend from a string to an array
+
+    tallyBoxes(mycards)
+
+
+    
+    // Using a for loop to iterate over the array
+    try{
+      for (let i = 0; i < parsedVerses.length; i++) {
+        // no need to delcare .question and .answer just reference parsedVerses[i]
+        //myArrayMatchValue.push(parsedVerses[i])
+        // Accessing each element using the index i
+        strmyFlashCards=JSON.stringify(mycards)
+        if(strmyFlashCards.includes(parsedVerses[i].answer)){
+          console.log('verse already exists in mycards')
+        }
+        else{
+          mycards.push(parsedVerses[i])
+          console.log('not in mycards appending')
+        }
+        
+        }
+     }
+     catch (error){
+      console.error("An error occurred:", error.message);
+     }
+      console.log("mycards is now: ",mycards)   
+      
+    
+      
+  }
+  const handleSubmit=(event)=>{
+    if(buttonflag==false){
+      event.preventDefault();//prevent page from refreshing on form submission
+    }
+
+    }
+  const handleButtonClick=(button)=>{  
+    if(button =='button1'){
+      buttonflag=true
+    }
+    if(button=='button2'){
+      buttonflag=false
+      saveToLocS()
+    }
+    if(button=='button3'){
+      buttonflag=false
+      clearLocS()
+    }
+    
+  }
+  const clearLocS=()=>{
+    const comfirm_remove_all=window.confirm("Would you like to remove all of the verses from your flashcards?")
+    if(comfirm_remove_all){
+      localStorage.clear()
+      window.alert("All flashcards have been removed from your web browser")
+    }
+  }
+  const saveToLocS=()=>{
+      let match=false
+      try{
+        console.log('parsedVerses length is ',parsedVerses.length)
+        reference=capitalizeWords(reference)
+        console.log('verse reference after capwords is ',reference)
+        for (let i=0;i<parsedVerses.length;i++){
+          if(parsedVerses[i].answer==reference){
+            match=true
+          }
+         }
+      } 
+      catch (error){
+        console.error("An error occurred:", error.message);
+      }
+      finally {
+        // Code that will always be executed
+        console.log("This will be executed no matter what.");
+      }
+
+      if(match==false){
+        const comfirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
+        if(comfirm_save_verse){
+          mycards.push({'question':verse_text,'answer':reference,'box':1})
+          window.confirm(`${reference} has been added to your flashcards list.`)
+        }
+       
+      }
+      else{
+        window.alert(`${reference} has already been added to your flashcards list.`)        
+      }
+
+      // localStorage.clear() clears everything stored in the localStorage for the current domain.
+      localStorage.clear()
+      localStorage.setItem('bible-flash-cards',JSON.stringify(mycards))//convert mycards  back into a string
+
+      //reload the page
+      //location.reload()
+
+      
+
+
+    }
+
+  </script>
+
+<script nonce="{{ request.csp_nonce }}">
+  //open new tab for /editverses
+  let editverses = document.getElementById("edit-verses")
+  if(window.location.pathname.includes("editverses")){
+    editverses.target="/test"
+    editverses.rel =""
+  }
+
+</script>
+<script src="{% static 'bibleflashcardsjs/js/tally-boxes.js' %}" ></script>
+{% endblock script %}

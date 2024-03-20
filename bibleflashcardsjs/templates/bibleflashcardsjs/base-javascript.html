@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+    {% block title %}
+        Flashcards
+    {% endblock title %}
+    </title>
+    {% block description %}
+    {% endblock description %}
+    {% block baseheadtags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bibleflashcardsjs/css/assets/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'bibleflashcardsjs/css/assets/loopple/loopple.css' %}">
+
+    <!--This is the css used for the flashcards theme-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
+    <script src="{% static 'bibleflashcardsjs/js/pluralize.js' %}"></script>
+    
+    {% endblock baseheadtags %}
+    {% block customheadtags %}
+    {% endblock customheadtags %}
+    {% block stylehead %}
+    {% endblock stylehead %}
+</head>
+
+<style nonce="{{ request.csp_nonce }}">
+    /* Custom CSS */
+
+    :root {
+        --accent: #6e48ad;
+        --accent-bg: white;
+        --bg: #fff;
+        --text: #212121;
+        --text-light: #585858;
+        --border: #d8dae1;
+        --code: #d81b60;
+        --preformatted: #444;
+        --marked:#ffdd33;
+    }
+
+    article {
+        background-color: var(--marked);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        padding: 1em;
+        margin: 1em 0;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h2, h4 {
+        margin-top: 0;
+    }
+
+    hr {
+        background: var(--accent);
+        border-color: var(--accent);
+    }
+
+    button,
+    a[role="button"] {
+        color: blue;
+        text-decoration: none;
+    }
+
+    input, select, textarea {
+        width: 100%;
+    }
+</style>
+
+
+
+<body>
+    <header>
+        {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"><img width ="100%" height="100%" src="{% static 'bibleflashcardsjs/images/icons/bars-solid-black.svg' %}"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+          
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'showCards' %}">Bible Search Flashcards</a>
+                </li>
+                
+               </ul>
+            </div>
+          
+          </nav>
+        {% endblock navbar %}
+        <h1><img src="{% static 'bibleflashcardsjs/images/icons/book-bible-solid.svg' %}"> Bible
+            <img src="{% static 'bibleflashcardsjs/images/icons/magnifying-glass-solid.svg' %}"> Search Flashcards</h1>
+        {% include 'bibleflashcardsjs/navigation-javascript.html' %}
+    </header>
+        {% block content %}
+            <h2>Welcome to your Flashcards app!</h2>
+        {% endblock content %}
+
+        {% block footer %}
+        {% endblock footer %}
+    
+    {% block script %}
+    {% endblock %}
+</body>
+
+</html>

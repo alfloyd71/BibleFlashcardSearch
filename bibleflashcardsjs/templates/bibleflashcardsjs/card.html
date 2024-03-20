@@ -1,0 +1,46 @@
+<!-- bibleflashcardsjs/card.html -->
+{% block stylehead %}
+<style nonce="{{ request.csp_nonce }}">
+    html, body{
+        padding: 0%;
+        display: block;
+        margin-top: 1%;
+    }
+    #boxes-main{
+      display: block;
+      text-align: center;
+    }
+    #button-check, #button-x{
+        margin-top: 1%;
+        display: inline;
+        color: white;
+        height: 64px;
+        width: 232px;
+    }
+    #hyperlink-check, #hyperlink-x{
+        color: #eee;
+    }
+   
+  
+</style>
+
+{% endblock stylehead %}
+<main id="boxes-main">
+  <h3 id="boxnum"></h3>
+  <article id="box-article">
+    <h4 id="card-question"></h4>
+    <p id="card-answer-transparent"></p>
+    
+    <details>
+        <summary>Reveal Answer</summary>
+        <p id="card-answer">{{ card.answer }}</p>
+    </details>
+    
+    <button id="button-check"><a id="hyperlink-check" href="/"><img src="/static/bibleflashcardsjs/images/icons/check-solid.svg"> I Know</button></a>
+    <button id="button-x"><a id="hyperlink-x" href="/"><img src="/static/bibleflashcardsjs/images/icons/x-solid.svg"> I Don't Know</button></a>
+       
+        
+        <hr>
+        
+</article>
+</main>

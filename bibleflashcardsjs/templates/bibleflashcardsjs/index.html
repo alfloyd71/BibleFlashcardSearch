@@ -1,0 +1,315 @@
+{% extends 'bibleflashcardsjs/base-javascript.html' %}
+{% load static %}
+{% load humanize %}
+{% block customheadtags %}
+
+<!--bootstrap minified reduced size css version-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!--links to javascript files-->
+<!--the latest version jquery 3.5 should come before bootstap-min.js-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<!--Popper.js is a popular JavaScript library used for positioning tooltips and popovers in web applications.-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<!--default Bible verses are in questions.js code snippet-->
+<script src="{% static 'bibleflashcardsjs/js/questions.js' %}"></script>
+
+{% endblock customheadtags %}
+
+  {% block title %}
+    Where's That Bible Verse? Flashcards     
+  {% endblock %}
+  
+  {% block description %}
+  <meta name="description" content="Search for any verses in the King James Version(KJV) of the Bible by verse number and then add them to your flashcards.">
+    
+  {% endblock %}
+
+  {% block stylehead %}
+  <style nonce="{{ request.csp_nonce }}">
+    html, body{
+      padding: 1%;
+      display: block;
+      /*max-width: 99.173%;*/
+     
+    }
+    
+    #footer{
+      padding-left: 20%;
+    }
+    #stat-details{
+      color:white;
+    }
+    .upload-questions-label{
+      color:white;
+    }
+    .icon-checkmark,.icon-close{
+      color:white;
+    }
+    #index-main{
+      display: block;
+      text-align: center; /* center all children of the <main> element */
+    }
+    
+    #row1{
+      padding-top:5% ;
+    }
+  
+  </style>
+  {% endblock stylehead%}
+
+  {% block content %}
+    
+    <main id="index-main">
+      <h2>
+        All Cards
+    </h2>
+    <a href="{% url 'editVerses' %}" role="button">
+        ✨ Create New Card
+    </a>
+    
+    <span id="insert-html-here"></span>
+    
+    </main>
+    <!-- html for box page goes here -->
+
+    {% include 'bibleflashcardsjs/card.html' %}
+    
+  
+
+  {% endblock content %}
+
+  <!-- footer goes here...-->
+
+  {% block script %}
+  <script id = 'parent-script' nonce="{{ request.csp_nonce }}">
+    let inputarea, verse, reference,verses
+    let buttonflag=false
+    let versesToAppend;let parsedVerses;
+    let myArrayMatchValue;
+    let strmyFlashCards;
+    let box1=[];let box2=[];let box3=[];
+    
+window.onload = function () {
+  versesToAppend=[{'question':'And I stood upon the sand of the sea, and saw a beast rise up out of the sea, having seven heads \
+     and ten horns, and upon his horns ten crowns, and upon his heads the name of blasphemy.','answer':'Revelation 13:1'},
+     {'question':'test question','answer':'answered question',   }]
+ 
+  const main = document.getElementById("index-main")
+  const card_question = document.getElementById("card-question")
+  const card_answer = document.getElementById("card-answer")  
+  const card_box = document.getElementById("box-number")
+  const insert_html = document.getElementById("insert-html-here")
+  const box_article = document.getElementById("box-article")
+  const boxes_main = document.getElementById("boxes-main")
+  const hyperlink_check = document.getElementById("hyperlink-check")
+  const hyperlink_x = document.getElementById("hyperlink-x")
+  const boxnum = document.getElementById("boxnum")
+  
+  boxes_main.style.display="none"
+
+
+  let mycards=JSON.parse(localStorage.getItem("bible-flash-cards")) || []
+  
+  
+
+  tallyBoxes(mycards)
+  
+
+  
+// Initialize a Set to store unique box numbers
+let inserted_questions = new Set();
+let html = ''
+let counted_boxes1 = false
+let counted_boxes2 = false
+let counted_boxes3 = false
+let counted_boxes4 = false
+let counted_boxes5 = false
+
+
+// sort mycards by box #
+mycards.sort((a, b)=>a['box']-b['box'])
+
+for(let i = 0; i < mycards.length; i++) {
+    // Check if the box number is already inserted
+    if (!inserted_questions.has(mycards[i]['question'])) {
+        // Add the box number to the set of inserted boxes
+        inserted_questions.add(mycards[i]['question']);
+        switch (mycards[i]['box']){
+          case 1: 
+            if(counted_boxes1==false){
+              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              counted_boxes1=true
+            }
+            break
+          case 2: 
+            if(counted_boxes2==false){
+              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              counted_boxes2=true
+            }
+            break
+          case 3: 
+            if(counted_boxes3==false){
+              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              counted_boxes3=true
+            }
+            break
+          case 4: 
+            if(counted_boxes4==false){
+              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              counted_boxes4=true
+            }
+            break
+          case 5: 
+            if(counted_boxes5==false){
+              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              counted_boxes5=true
+            }
+            break
+        }
+        
+        html+=`<article class="article-allcards"><h4>${mycards[i]['question']}</h4><p>${mycards[i]['answer']}</p></article>
+        <a href="/bibleflashcards/?box=${mycards[i]['box']}" role="button">
+            Box
+        </a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/bibleflashcards/?pk=${i}&box=${mycards[i]['box']}&delete=true" role="button">
+            Delete
+        </a>`
+        
+    }
+}
+
+insert_html.innerHTML=html
+
+const article_allcards=document.getElementsByClassName("article-allcards")
+for(let i=0;i<article_allcards.length;i++){
+  article_allcards[i].style.width="50%"
+  // center this article - 0 margin from top and bottom - auto (Automatic Left and Right Margin) 
+  article_allcards[i].style.margin = "0 auto"
+}
+
+box_article.style.width="50%"
+box_article.style.margin= "0 auto"
+parsedVerses=mycards// converts versesToAppend from a string to an array
+    
+// Get the search parameters from the URL
+const url_parameters = new URLSearchParams(window.location.search);
+
+// Get the value of a parameter
+const primary_key = url_parameters.get('pk');
+// Get box number as an integer
+const box = url_parameters.get('box')
+const delete_verse = url_parameters.get('delete')
+const check = url_parameters.get('check')
+const x = url_parameters.get('x')
+
+if(primary_key && box && delete_verse){
+  // convert pk to an int using parseInt(pk)
+  const index = parseInt(primary_key)
+  let confirmation = window.confirm(`Are you sure you want to delete ${mycards[index].answer} \n\n"${mycards[index].question}"\n\n`)
+  let true_statement = true
+  if(confirmation){
+    // only delete the primary_key index 
+    mycards.splice(index, 1)
+    localStorage.setItem("bible-flash-cards", JSON.stringify(mycards))
+    // refresh the page to get an updated set of bible-flash-cards from localStorage
+    
+  }
+  window.location.href="/bibleflashcards"
+}
+
+const showRandomVerse=(random_verses, random_verse_index)=>{
+  boxnum.innerHTML=`${pluralize(box, count=2)} Box`
+  card_question.innerHTML = random_verses[random_verse_index]['question']
+  card_answer.innerHTML = random_verses[random_verse_index]['answer']
+  hyperlink_check.href=`/bibleflashcards/?box=${random_verses[random_verse_index]['box']}&check=true`
+  hyperlink_x.href=`/bibleflashcards/?box=${random_verses[random_verse_index]['box']}&x=true`
+}
+
+if(box && !delete_verse){
+  const random_verses = []
+  const random_verse_index=Math.floor(Math.random()*random_verses.length)
+  for(i=0;i<mycards.length;i++){
+    if(mycards[i]['box']===parseInt(box)){
+      random_verses.push(mycards[i])
+    }
+  }
+  main.style.display="none"
+  if(random_verses.length>=1){
+    boxes_main.style.display="block"
+  }
+  else{
+    boxes_main.style.display="none"
+  }
+    
+  if (check) {
+    let updated = false; // Flag to track if a card was updated
+
+  for (let i = 0; i < mycards.length; i++) {
+    if (mycards[i]['answer'] === random_verses[random_verse_index]['answer']) {
+      
+      if (parseInt(box) + 1 <= 5) {
+        mycards[i]['box'] = parseInt(box) + 1;
+        localStorage.setItem("bible-flash-cards", JSON.stringify(mycards));
+        updated = true; // Mark as updated
+      }
+      else{
+        window.location.href = `/bibleflashcards/?box=${box}`;
+      }
+
+      break // Exit the loop after updating one card
+    }
+  }
+
+  if (updated) {
+    // Redirect only if a card was updated
+    // Bug Fixed - The page was redirecting every time with no conditional flag set
+    window.location.href = `/bibleflashcards/?box=${box}`;
+  }
+if(random_verses.length>1){  
+  showRandomVerse(random_verses, random_verse_index)
+}
+// end if(check)
+}
+  else if(x){
+      for(let i=0;i<mycards.length;i++){
+        if(mycards[i]['answer']==random_verses[random_verse_index]['answer']){
+          mycards[i]['box']=parseInt("1")
+          localStorage.setItem("bible-flash-cards", JSON.stringify(mycards))
+          updated=true
+          break
+        }
+      }
+      if (updated) {
+    // Redirect only if a card was updated
+    // Bug Fixed - The page was redirecting every time with no conditional flag set
+    window.location.href = `/bibleflashcards/?box=${box}`;
+      }
+    showRandomVerse(random_verses, random_verse_index)   
+  // end if(x)
+  }
+  else{
+    showRandomVerse(random_verses, random_verse_index) 
+  }
+  
+  // display:block is the default for the <div> element
+  // hide everything in the <main> element
+  main.style.display="none"
+  
+// end if(box && !delete_verse)
+}
+
+  
+  
+
+
+//end window.onload function
+  }
+
+</script>
+
+<script src="{% static 'bibleflashcardsjs/js/tally-boxes.js' %}" ></script>
+
+  {% endblock script%}
