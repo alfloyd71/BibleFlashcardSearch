@@ -1,6 +1,6 @@
 # Bible Flashcards Search
 
-Bible Flashcards Search is an open source flashcard app that lets you search for any verses in the King James Version(KJV) of the Bible by verse number and then add them to your flashcards.
+Bible Flashcards Search is an open source flashcard app that lets you search for any verse in the King James Version(KJV) of the Bible by verse number and then create a flashcard to be added to a flashcards list.  BSF uses the "flashcard box system" that organizes and uses flashcards in a systematic way to enhance learning through spaced repetition.
 Besides the Django package, pythonbible is the only other dependency all other files are included in the bibleflashcardsjs folder. BFS uses the "flashcard box system" that organizes and uses flashcards in a systematic way to enhance learning through spaced repetition. 
 
 Box Levels: Each box represents a different level of familiarity or mastery:
