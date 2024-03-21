@@ -13,7 +13,7 @@ Box Levels: Each box represents a different level of familiarity or mastery:
 
 ![Bible Flashcards Search](https://www.freesmartphoneapps.com/static/projects/images/BibleSearchFlashcards2.png "Bible Search Flashcards")
 
-<!--[Bible Flashcards Search](https://www.freesmartphoneapps.com/bibleflashcards/)-->
+[Bible Flashcards Search](https://www.freesmartphoneapps.com/bibleflashcards/)
 
 
 
