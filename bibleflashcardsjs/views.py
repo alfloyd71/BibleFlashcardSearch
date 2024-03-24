@@ -189,10 +189,6 @@ def editVerses(request):
              'versereference':versereference, 'verse_text':verse_text, 'reference':reference              }
     return render(request, 'bibleflashcardsjs/editverses.html', context)
 
-
-
-
-
 def fetchCard(request):
     return render(request, "bibleflashcardsjs/card.html")
 

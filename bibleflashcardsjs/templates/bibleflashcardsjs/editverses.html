@@ -59,9 +59,26 @@
 
 
 
+<!-- footer goes here...-->
 {% block footer %}
-  
-{% endblock %}
+<footer class="footer py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-8 mx-auto text-center mt-1">
+            &nbsp;
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-8 mx-auto text-center mt-1">
+            <p class="mb-0 text-secondary">
+                &copy2024 MyWebsite.com
+            </p>
+        </div>
+      </div>
+    </div>
+</footer>
+{% endblock footer %}
 
 {% block script %}
   <script nonce="{{ request.csp_nonce }}">
