@@ -23,7 +23,7 @@
   {% endblock %}
   
   {% block description %}
-  <meta name="description" content="Search for any verses in the King James Version(KJV) of the Bible by verse number and then add them to your flashcards.">
+  <meta name="description" content="Search for any verse in the King James Version(KJV) of the Bible by verse number and then create a flashcard to be added to a flashcards list.">
     
   {% endblock %}
 
@@ -89,6 +89,25 @@
   {% endblock content %}
 
   <!-- footer goes here...-->
+  {% block footer %}
+  <footer class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-8 mx-auto text-center mt-1">
+              &nbsp;
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-8 mx-auto text-center mt-1">
+              <p class="mb-0 text-secondary">
+                  &copy2024 MyWebsite.com
+              </p>
+          </div>
+        </div>
+      </div>
+  </footer>
+  {% endblock %}
 
   {% block script %}
   <script id = 'parent-script' nonce="{{ request.csp_nonce }}">
