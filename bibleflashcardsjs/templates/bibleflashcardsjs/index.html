@@ -48,6 +48,7 @@
     .icon-checkmark,.icon-close{
       color:white;
     }
+    
     #index-main{
       display: block;
       text-align: center; /* center all children of the <main> element */
@@ -216,10 +217,12 @@ for(let i=0;i<article_allcards.length;i++){
   article_allcards[i].style.width="98%"
   // center this article - 0 margin from top and bottom - auto (Automatic Left and Right Margin) 
   article_allcards[i].style.margin = "0 auto"
+  article_allcards[i].style.textAlign="left"
 }
 
 box_article.style.width="98%"
 box_article.style.margin= "0 auto"
+box_article.style.textAlign="left"
 parsedVerses=mycards// converts versesToAppend from a string to an array
     
 // Get the search parameters from the URL
