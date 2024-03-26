@@ -261,15 +261,21 @@ const showRandomVerse=(random_verses, random_verse_index)=>{
 
 if(box && !delete_verse){
   const random_verses = []
-  const random_verse_index=Math.floor(Math.random()*random_verses.length)
+  
   for(i=0;i<mycards.length;i++){
     if(mycards[i]['box']===parseInt(box)){
       random_verses.push(mycards[i])
     }
   }
+
+  const random_verse_index=Math.floor(Math.random()*random_verses.length)
+  console.log("random_verse_index ", random_verse_index)
+  console.log("random_verses length ",random_verses.length)
+
   main.style.display="none"
   if(random_verses.length>=1){
     boxes_main.style.display="block"
+    showRandomVerse(random_verses, random_verse_index)
   }
   else{
     boxes_main.style.display="none"
@@ -278,8 +284,8 @@ if(box && !delete_verse){
   if (check) {
     let updated = false; // Flag to track if a card was updated
 
-  for (let i = 0; i < mycards.length; i++) {
-    if (mycards[i]['answer'] === random_verses[random_verse_index]['answer']) {
+    for (let i = 0; i < mycards.length; i++) {
+     if (mycards[i]['answer'] === random_verses[random_verse_index]['answer']) {
       
       if (parseInt(box) + 1 <= 5) {
         mycards[i]['box'] = parseInt(box) + 1;
@@ -299,9 +305,10 @@ if(box && !delete_verse){
     // Bug Fixed - The page was redirecting every time with no conditional flag set
     window.location.href = `/bibleflashcards/?box=${box}`;
   }
-if(random_verses.length>1){  
+
+/*if(random_verses.length>1){  
   showRandomVerse(random_verses, random_verse_index)
-}
+}*/
 // end if(check)
 }
   else if(x){
