@@ -19,7 +19,7 @@
 {% endblock customheadtags %}
 
   {% block title %}
-    Where's That Bible Verse? Flashcards     
+    Bible Flashcards Search
   {% endblock %}
   
   {% block description %}
@@ -330,21 +330,15 @@ if(random_verses.length>1){
   main.style.display="none"
   
 // end if(box && !delete_verse)
+ }
+  
+//end window.onload function
 }
 
-  
-  
-
-
-//end window.onload function
-  }
-
   const parentNode = document.getElementById("index-main").parentNode
-  const articles = document.getElementsByClassName("article-allcards")
   console.log("Parent node for this element is ", parentNode)
   parentNode.style.margin="0%"
   parentNode.style.padding="0%"
-  articles.style.width="80%"
 
 </script>
 
