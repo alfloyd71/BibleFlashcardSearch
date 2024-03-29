@@ -111,34 +111,87 @@
   {% endblock %}
 
   {% block script %}
-  <script id = 'parent-script' nonce="{{ request.csp_nonce }}">
+  <script nonce="{{ request.csp_nonce }}">
+    let parameters_box=1
+    let mycards
     let inputarea, verse, reference,verses
     let buttonflag=false
     let versesToAppend;let parsedVerses;
     let myArrayMatchValue;
     let strmyFlashCards;
     let box1=[];let box2=[];let box3=[];
+    const main = document.getElementById("index-main")
+    const card_question = document.getElementById("card-question")
+    const card_answer = document.getElementById("card-answer")
+    const boxnum = document.getElementById("boxnum")
+    const boxes_main = document.getElementById("boxes-main")
+    const insert_html = document.getElementById("insert-html-here")
+    const box_article = document.getElementById("box-article")
+    
+    const hyperlink_check = document.getElementById("hyperlink-check")
+    const hyperlink_x = document.getElementById("hyperlink-x")
+    let global_random_verse_index
+    let global_random_verses
+
+    hyperlink_check.addEventListener(("click"),(element) =>{
+    let updated = false; // Flag to track if a card was updated
+
+    for (let i = 0; i < mycards.length; i++) {
+     if (mycards[i]['answer'] === global_random_verses[global_random_verse_index]['answer']) {
+      if (parseInt(parameters_box) + 1 <= 5) {
+        mycards[i]['box'] = parseInt(parameters_box) + 1;
+        localStorage.setItem("bible-flash-cards", JSON.stringify(mycards));
+        updated = true; // Mark as updated
+      }
+      else{
+        window.location.href = `/bibleflashcards/?box=${box}`;
+      }
+
+      break // Exit the loop after updating one card
+    }
+  }
+
+    if (updated) {
+    // Redirect only if a card was updated
+    // Bug Fixed - The page was redirecting every time with no conditional flag set
+       window.location.href = `/bibleflashcards/?box=${parameters_box}`;
+    }
+
+  })
+
+  hyperlink_x.addEventListener("click",(event)=>{
+    for(let i=0;i<mycards.length;i++){
+        if(mycards[i]['answer']==global_random_verses[global_random_verse_index]['answer']){
+          mycards[i]['box']=parseInt("1")
+          localStorage.setItem("bible-flash-cards", JSON.stringify(mycards))
+          updated=true
+          break
+        }
+      }
+      if (updated) {
+    // Redirect only if a card was updated
+    // Bug Fixed - The page was redirecting every time with no conditional flag set
+        window.location.href = `/bibleflashcards/?box=${box}`;
+  
+      }
+    showRandomVerse(random_verses, random_verse_index) 
+  })
+    const showRandomVerse=(box)=>{
+      boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(box))} Box</h3>`
+      card_question.innerHTML = global_random_verses[global_random_verse_index]['question']
+      card_answer.innerHTML = global_random_verses[global_random_verse_index]['answer']
+      hyperlink_check.href=`/bibleflashcards/?box=${global_random_verses[global_random_verse_index]['box']}&check=true`
+      hyperlink_x.href=`/bibleflashcards/?box=${global_random_verses[global_random_verse_index]['box']}&x=true`
+    }
     
 window.onload = function () {
+  boxes_main.style.display="none"
+
   versesToAppend=[{'question':'And I stood upon the sand of the sea, and saw a beast rise up out of the sea, having seven heads \
      and ten horns, and upon his horns ten crowns, and upon his heads the name of blasphemy.','answer':'Revelation 13:1'},
      {'question':'test question','answer':'answered question',   }]
- 
-  const main = document.getElementById("index-main")
-  const card_question = document.getElementById("card-question")
-  const card_answer = document.getElementById("card-answer")  
-  const card_box = document.getElementById("box-number")
-  const insert_html = document.getElementById("insert-html-here")
-  const box_article = document.getElementById("box-article")
-  const boxes_main = document.getElementById("boxes-main")
-  const hyperlink_check = document.getElementById("hyperlink-check")
-  const hyperlink_x = document.getElementById("hyperlink-x")
-  const boxnum = document.getElementById("boxnum")
   
-  boxes_main.style.display="none"
-
-
-  let mycards=JSON.parse(localStorage.getItem("bible-flash-cards")) || []
+  mycards=JSON.parse(localStorage.getItem("bible-flash-cards")) || []
   
   
 
@@ -167,31 +220,31 @@ for(let i = 0; i < mycards.length; i++) {
         switch (mycards[i]['box']){
           case 1: 
             if(counted_boxes1==false){
-              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes1=true
             }
             break
           case 2: 
             if(counted_boxes2==false){
-              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes2=true
             }
             break
           case 3: 
             if(counted_boxes3==false){
-              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes3=true
             }
             break
           case 4: 
             if(counted_boxes4==false){
-              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes4=true
             }
             break
           case 5: 
             if(counted_boxes5==false){
-              html+=`<h3>${pluralize(mycards[i]['box'].toString(), count=2)} Box</h3>`
+              html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes5=true
             }
             break
@@ -231,7 +284,7 @@ const url_parameters = new URLSearchParams(window.location.search);
 // Get the value of a parameter
 const primary_key = url_parameters.get('pk');
 // Get box number as an integer
-const box = url_parameters.get('box')
+parameters_box = url_parameters.get('box')
 const delete_verse = url_parameters.get('delete')
 const check = url_parameters.get('check')
 const x = url_parameters.get('x')
@@ -251,67 +304,29 @@ if(primary_key && box && delete_verse){
   window.location.href="/bibleflashcards"
 }
 
-const showRandomVerse=(random_verses, random_verse_index)=>{
-  boxnum.innerHTML=`${pluralize(box, count=2)} Box`
-  card_question.innerHTML = random_verses[random_verse_index]['question']
-  card_answer.innerHTML = random_verses[random_verse_index]['answer']
-  hyperlink_check.href=`/bibleflashcards/?box=${random_verses[random_verse_index]['box']}&check=true`
-  hyperlink_x.href=`/bibleflashcards/?box=${random_verses[random_verse_index]['box']}&x=true`
-}
-
-if(box && !delete_verse){
-  const random_verses = []
+if(parameters_box && !delete_verse){
+  global_random_verses = []
   
   for(i=0;i<mycards.length;i++){
-    if(mycards[i]['box']===parseInt(box)){
-      random_verses.push(mycards[i])
+    if(mycards[i]['box']===parseInt(parameters_box)){
+      global_random_verses.push(mycards[i])
     }
   }
 
-  const random_verse_index=Math.floor(Math.random()*random_verses.length)
-  console.log("random_verse_index ", random_verse_index)
-  console.log("random_verses length ",random_verses.length)
-
+  global_random_verse_index=Math.floor(Math.random()*global_random_verses.length)
+  
   main.style.display="none"
-  if(random_verses.length>=1){
+  if(global_random_verses.length>=1){
     boxes_main.style.display="block"
-    showRandomVerse(random_verses, random_verse_index)
+    showRandomVerse(parameters_box)
   }
   else{
     boxes_main.style.display="none"
   }
     
-  if (check) {
-    let updated = false; // Flag to track if a card was updated
+  
 
-    for (let i = 0; i < mycards.length; i++) {
-     if (mycards[i]['answer'] === random_verses[random_verse_index]['answer']) {
-      
-      if (parseInt(box) + 1 <= 5) {
-        mycards[i]['box'] = parseInt(box) + 1;
-        localStorage.setItem("bible-flash-cards", JSON.stringify(mycards));
-        updated = true; // Mark as updated
-      }
-      else{
-        window.location.href = `/bibleflashcards/?box=${box}`;
-      }
-
-      break // Exit the loop after updating one card
-    }
-  }
-
-  if (updated) {
-    // Redirect only if a card was updated
-    // Bug Fixed - The page was redirecting every time with no conditional flag set
-    window.location.href = `/bibleflashcards/?box=${box}`;
-  }
-
-/*if(random_verses.length>1){  
-  showRandomVerse(random_verses, random_verse_index)
-}*/
-// end if(check)
-}
-  else if(x){
+ /* else if(x){
       for(let i=0;i<mycards.length;i++){
         if(mycards[i]['answer']==random_verses[random_verse_index]['answer']){
           mycards[i]['box']=parseInt("1")
@@ -323,7 +338,8 @@ if(box && !delete_verse){
       if (updated) {
     // Redirect only if a card was updated
     // Bug Fixed - The page was redirecting every time with no conditional flag set
-    window.location.href = `/bibleflashcards/?box=${box}`;
+        window.location.href = `/bibleflashcards/?box=${box}`;
+  
       }
     showRandomVerse(random_verses, random_verse_index)   
   // end if(x)
@@ -331,10 +347,13 @@ if(box && !delete_verse){
   else{
     showRandomVerse(random_verses, random_verse_index) 
   }
+  */
   
   // display:block is the default for the <div> element
   // hide everything in the <main> element
   main.style.display="none"
+
+  
   
 // end if(box && !delete_verse)
  }

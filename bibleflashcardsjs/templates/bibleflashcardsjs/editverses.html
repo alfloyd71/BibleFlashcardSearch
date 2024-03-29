@@ -207,9 +207,7 @@
   const saveToLocS=()=>{
       let match=false
       try{
-        console.log('parsedVerses length is ',parsedVerses.length)
         reference=capitalizeWords(reference)
-        console.log('verse reference after capwords is ',reference)
         for (let i=0;i<parsedVerses.length;i++){
           if(parsedVerses[i].answer==reference){
             match=true
