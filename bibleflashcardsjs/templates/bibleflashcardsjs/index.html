@@ -112,6 +112,7 @@
 
   {% block script %}
   <script nonce="{{ request.csp_nonce }}">
+    // GLOBAL VARIABLES
     let parameters_box=1
     let mycards
     let inputarea, verse, reference,verses
@@ -127,7 +128,6 @@
     const boxes_main = document.getElementById("boxes-main")
     const insert_html = document.getElementById("insert-html-here")
     const box_article = document.getElementById("box-article")
-    
     const hyperlink_check = document.getElementById("hyperlink-check")
     const hyperlink_x = document.getElementById("hyperlink-x")
     let global_random_verse_index
@@ -174,7 +174,6 @@
         window.location.href = `/bibleflashcards/?box=${box}`;
   
       }
-    showRandomVerse(random_verses, random_verse_index) 
   })
     const showRandomVerse=(box)=>{
       boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(box))} Box</h3>`
@@ -219,31 +218,31 @@ for(let i = 0; i < mycards.length; i++) {
         inserted_questions.add(mycards[i]['question']);
         switch (mycards[i]['box']){
           case 1: 
-            if(counted_boxes1==false){
+            if(counted_boxes1===false){
               html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes1=true
             }
             break
           case 2: 
-            if(counted_boxes2==false){
+            if(counted_boxes2===false){
               html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes2=true
             }
             break
           case 3: 
-            if(counted_boxes3==false){
+            if(counted_boxes3===false){
               html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes3=true
             }
             break
           case 4: 
-            if(counted_boxes4==false){
+            if(counted_boxes4===false){
               html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes4=true
             }
             break
           case 5: 
-            if(counted_boxes5==false){
+            if(counted_boxes5===false){
               html+=`<h3>${pluralize('st', mycards[i]['box'])} Box</h3>`
               counted_boxes5=true
             }
@@ -289,7 +288,7 @@ const delete_verse = url_parameters.get('delete')
 const check = url_parameters.get('check')
 const x = url_parameters.get('x')
 
-if(primary_key && box && delete_verse){
+if(primary_key && parameters_box && delete_verse){
   // convert pk to an int using parseInt(pk)
   const index = parseInt(primary_key)
   let confirmation = window.confirm(`Are you sure you want to delete ${mycards[index].answer} \n\n"${mycards[index].question}"\n\n`)
