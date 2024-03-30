@@ -161,7 +161,7 @@
 
   hyperlink_x.addEventListener("click",(event)=>{
     for(let i=0;i<mycards.length;i++){
-        if(mycards[i]['answer']==global_random_verses[global_random_verse_index]['answer']){
+        if(mycards[i]['answer']===global_random_verses[global_random_verse_index]['answer']){
           mycards[i]['box']=parseInt("1")
           localStorage.setItem("bible-flash-cards", JSON.stringify(mycards))
           updated=true

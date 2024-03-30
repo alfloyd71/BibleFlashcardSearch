@@ -178,20 +178,20 @@
       
   }
   const handleSubmit=(event)=>{
-    if(buttonflag==false){
+    if(buttonflag===false){
       event.preventDefault();//prevent page from refreshing on form submission
     }
 
     }
   const handleButtonClick=(button)=>{  
-    if(button =='button1'){
+    if(button ==='button1'){
       buttonflag=true
     }
-    if(button=='button2'){
+    if(button==='button2'){
       buttonflag=false
       saveToLocS()
     }
-    if(button=='button3'){
+    if(button==='button3'){
       buttonflag=false
       clearLocS()
     }
@@ -209,7 +209,7 @@
       try{
         reference=capitalizeWords(reference)
         for (let i=0;i<parsedVerses.length;i++){
-          if(parsedVerses[i].answer==reference){
+          if(parsedVerses[i].answer===reference){
             match=true
           }
          }
@@ -222,7 +222,7 @@
         console.log("This will be executed no matter what.");
       }
 
-      if(match==false){
+      if(match===false){
         const comfirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
         if(comfirm_save_verse){
           mycards.push({'question':verse_text,'answer':reference,'box':1})
