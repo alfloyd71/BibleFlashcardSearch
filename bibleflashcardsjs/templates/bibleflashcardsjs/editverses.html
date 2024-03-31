@@ -198,8 +198,8 @@
     
   }
   const clearLocS=()=>{
-    const comfirm_remove_all=window.confirm("Would you like to remove all of the verses from your flashcards?")
-    if(comfirm_remove_all){
+    const confirm_remove_all=window.confirm("Would you like to remove all of the verses from your flashcards?")
+    if(confirm_remove_all){
       localStorage.clear()
       window.alert("All flashcards have been removed from your web browser")
     }
@@ -223,8 +223,8 @@
       }
 
       if(match===false){
-        const comfirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
-        if(comfirm_save_verse){
+        const confirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
+        if(confirm_save_verse){
           mycards.push({'question':verse_text,'answer':reference,'box':1})
           window.confirm(`${reference} has been added to your flashcards list.`)
         }
