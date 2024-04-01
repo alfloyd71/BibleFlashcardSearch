@@ -11,7 +11,7 @@ Box Levels: Each box represents a different level of familiarity or mastery:
 <li>Optional Boxes: Some systems may include additional boxes for more advanced levels of mastery, such as Box 4 and Box 5.</li>
 </ul>
 
-![Bible Flashcards Search](https://www.freesmartphoneapps.com/static/projects/images/BibleFlashcardsSearchAndroid-refresh.png "Bible Search Flashcards")
+![Bible Flashcards Search](https://www.freesmartphoneapps.com/static/projects/images/BibleFlashcardsSearchAndroid.png "Bible Search Flashcards")
 
 [Bible Flashcards Search](https://www.freesmartphoneapps.com/bibleflashcards/)
 
