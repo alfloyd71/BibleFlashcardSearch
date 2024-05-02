@@ -26,7 +26,9 @@
         color: #eee;
     }
 
-    
+    #details-reveal-answer{
+        margin-bottom: 1em;
+    }
    
   
 </style>
@@ -38,7 +40,7 @@
     <h4 id="card-question"></h4>
     <p id="card-answer-transparent"></p>
     
-    <details>
+    <details id="details-reveal-answer">
         <summary>Reveal Answer</summary>
         <p id="card-answer">{{ card.answer }}</p>
     </details>
