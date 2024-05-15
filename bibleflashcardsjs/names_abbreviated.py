@@ -5,6 +5,8 @@ def getBookNamesAbbreviated(bookname="psalms"):
             bookname="genesis"
         case "GEN":
             bookname="genesis"
+        case "EX":
+            bookname="exodus"    
         case "EXO":
             bookname="exodus"
         case "LEV":
