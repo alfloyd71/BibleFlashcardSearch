@@ -45,8 +45,8 @@
         <p id="card-answer">{{ card.answer }}</p>
     </details>
     
-    <a id="hyperlink-check" href="/"><button id="button-check" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/check-solid.svg"> I Know</button></a>
-    <a id="hyperlink-x" href="/"><button id="button-x" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/x-solid.svg"> I Don't Know</button></a>
+    <a id="hyperlink-check" href="{% url 'showFlashcards'%}"><button id="button-check" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/check-solid.svg"> I Know</button></a>
+    <a id="hyperlink-x" href="{% url 'showFlashcards'%}"><button id="button-x" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/x-solid.svg"> I Don't Know</button></a>
        
         
         <hr>

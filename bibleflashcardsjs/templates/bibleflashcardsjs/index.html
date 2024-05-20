@@ -138,7 +138,7 @@
         updated = true; // Mark as updated
       }
       else{
-        window.location.href = `{% url 'showCards' %}/?box=${parameters_box}`;
+        window.location.href = `{% url 'showCards' %}?box=${parameters_box}`;
       }
 
       break // Exit the loop after updating one card
@@ -165,7 +165,7 @@
       if (updated) {
     // Redirect only if a card was updated
     // Bug Fixed - The page was redirecting every time with no conditional flag set
-        window.location.href = `{% url 'showCards' %}/?box=${box}`;
+        window.location.href = `{% url 'showCards' %}?box=${box}`;
   
       }
   })
@@ -173,8 +173,8 @@
       boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(box))} Box</h3>`
       card_question.innerHTML = global_random_verses[global_random_verse_index]['question']
       card_answer.innerHTML = global_random_verses[global_random_verse_index]['answer']
-      hyperlink_check.href=`{% url 'showCards' %}/?box=${global_random_verses[global_random_verse_index]['box']}&check=true`
-      hyperlink_x.href=`{% url 'showCards' %}/?box=${global_random_verses[global_random_verse_index]['box']}&x=true`
+      hyperlink_check.href=`{% url 'showCards' %}?box=${global_random_verses[global_random_verse_index]['box']}&check=true`
+      hyperlink_x.href=`{% url 'showCards' %}?box=${global_random_verses[global_random_verse_index]['box']}&x=true`
     }
     
 window.onload = function () {
