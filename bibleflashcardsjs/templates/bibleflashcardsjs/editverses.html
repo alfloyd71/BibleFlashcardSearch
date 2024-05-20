@@ -25,9 +25,6 @@
     <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
 {% endblock description %}
 
-{% block navbar %}
-{% endblock navbar %}
-  
 {% block content %}
   <main id="main-edit-verses">
 
@@ -39,9 +36,9 @@
                     {{ form.verse }}
                     <button id="button1" class="btn btn-primary">Find Verse</button>
                     {% if notdefaultbook %}
-                    <p><h3 class="alert alert-info">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
+                    <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
                     {% else %}
-                    <p><h3 class="alert alert-info"><span id="verse-text">{{ verse_text }}</span></h3></p>
+                    <p><h3 class="alert alert-custom"><span id="verse-text">{{ verse_text }}</span></h3></p>
                     <h2><p id="versereference">{{ versereference }}</p></h2>
                     {% endif %}
               
