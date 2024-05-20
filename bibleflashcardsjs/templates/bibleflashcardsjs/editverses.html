@@ -25,19 +25,17 @@
     <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
 {% endblock description %}
 
-
+{% block navbar %}
+{% endblock navbar %}
   
 {% block content %}
-
-  {% block navbar %}
-  {% endblock navbar %}
-    
-    <main id="main-edit-verses">
+  <main id="main-edit-verses">
 
       <article>
       <form id ="form-flashcards" method = "post" id="bibleFlashCards">
             {% csrf_token %}
-    
+            <fieldset class="border border-secondary p-2">   
+              <legend class="w-auto">Create New Card</legend>
                     {{ form.verse }}
                     <button id="button1" class="btn btn-primary">Find Verse</button>
                     {% if notdefaultbook %}
@@ -46,15 +44,16 @@
                     <p><h3 class="alert alert-info"><span id="verse-text">{{ verse_text }}</span></h3></p>
                     <h2><p id="versereference">{{ versereference }}</p></h2>
                     {% endif %}
-          
+              
                
         <button id="button2" class="btn btn-primary">Save Verse</button>
         <button id="button3" class="btn btn-primary">Remove All Verses</button>
+            </fieldset>
       </form>
   </article>
   </main>
     
-{% endblock %}
+{% endblock content %}
 
 
 

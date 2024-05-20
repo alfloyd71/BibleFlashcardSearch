@@ -138,7 +138,7 @@
         updated = true; // Mark as updated
       }
       else{
-        window.location.href = `/bibleflashcards/?box=${parameters_box}`;
+        window.location.href = `{% url 'showCards' %}/?box=${parameters_box}`;
       }
 
       break // Exit the loop after updating one card
@@ -148,7 +148,7 @@
     if (updated) {
     // Redirect only if a card was updated
     // Bug Fixed - The page was redirecting every time with no conditional flag set
-       window.location.href = `/bibleflashcards/?box=${parameters_box}`;
+       window.location.href = `{% url 'showCards' %}/?box=${parameters_box}`;
     }
 
   })
@@ -165,7 +165,7 @@
       if (updated) {
     // Redirect only if a card was updated
     // Bug Fixed - The page was redirecting every time with no conditional flag set
-        window.location.href = `/bibleflashcards/?box=${box}`;
+        window.location.href = `{% url 'showCards' %}/?box=${box}`;
   
       }
   })
@@ -173,8 +173,8 @@
       boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(box))} Box</h3>`
       card_question.innerHTML = global_random_verses[global_random_verse_index]['question']
       card_answer.innerHTML = global_random_verses[global_random_verse_index]['answer']
-      hyperlink_check.href=`/bibleflashcards/?box=${global_random_verses[global_random_verse_index]['box']}&check=true`
-      hyperlink_x.href=`/bibleflashcards/?box=${global_random_verses[global_random_verse_index]['box']}&x=true`
+      hyperlink_check.href=`{% url 'showCards' %}/?box=${global_random_verses[global_random_verse_index]['box']}&check=true`
+      hyperlink_x.href=`{% url 'showCards' %}/?box=${global_random_verses[global_random_verse_index]['box']}&x=true`
     }
     
 window.onload = function () {
@@ -244,12 +244,12 @@ for(let i = 0; i < mycards.length; i++) {
         }
         
         html+=`<article class="article-allcards"><h4>${mycards[i]['question']}</h4><p>${mycards[i]['answer']}</p></article>
-        <a href="/bibleflashcards/?box=${mycards[i]['box']}" role="button">
+        <a href="{% url 'showCards' %}/?box=${mycards[i]['box']}" role="button">
             Box
         </a>&nbsp;&nbsp;&nbsp;&nbsp;
         <a id ="edit-verses" href="{% url 'editVerses' %}">Edit Verses</a>
         </a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="/bibleflashcards/?pk=${i}&box=${mycards[i]['box']}&delete=true" role="button">
+        <a href="{% url 'showCards' %}/?pk=${i}&box=${mycards[i]['box']}&delete=true" role="button">
             Delete
         </a>`
         
@@ -294,7 +294,7 @@ if(primary_key && parameters_box && delete_verse){
     // refresh the page to get an updated set of bible-flash-cards from localStorage
     
   }
-  window.location.href="/bibleflashcards"
+  window.location.href="{% url 'showCards' %}"
 }
 
 if(parameters_box && !delete_verse){

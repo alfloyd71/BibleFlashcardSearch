@@ -2,10 +2,10 @@
 
 <nav>
     <a href="{% url 'showCards' %}"> All Cards</a>
-    <a id="first-box" href="/bibleflashcards/?box=1">1st Box</a>
-    <a id="second-box" href="/bibleflashcards/?box=2">2nd Box</a>
-    <a id="third-box" href="/bibleflashcards/?box=3">3rd Box</a>
-    <a id="fourth-box" href="/bibleflashcards/?box=4">4th Box</a>
-    <a id="fifth-box" href="/bibleflashcards/?box=5">5th Box</a>
+    <a id="first-box" href="{% url 'showCards' %}?box=1">1st Box</a>
+    <a id="second-box" href="{% url 'showCards' %}?box=2">2nd Box</a>
+    <a id="third-box" href="{% url 'showCards' %}?box=3">3rd Box</a>
+    <a id="fourth-box" href="{% url 'showCards' %}?box=4">4th Box</a>
+    <a id="fifth-box" href="{% url 'showCards' %}?box=5">5th Box</a>
 
 </nav>
