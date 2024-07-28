@@ -215,7 +215,7 @@
         const confirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
         if(confirm_save_verse){
           mycards.push({'question':verse_text,'answer':reference,'box':1})
-          window.confirm(`${reference} has been added to your flashcards list.`)
+          window.alert(`${reference} has been added to your flashcards list.`)
         }
        
       }
