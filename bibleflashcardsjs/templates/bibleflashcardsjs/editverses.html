@@ -80,18 +80,22 @@
     let strmyFlashCards;
     
    
-    document.getElementById("button1").onclick = function() {
+    document.querySelector('#button1').addEventListener('click', (event)=>{
       handleButtonClick('button1');
-    };
-    document.getElementById("button2").onclick = function() {
-      handleButtonClick('button2');
-    };
-    document.getElementById("button3").onclick = function() {
-      handleButtonClick('button3');
-    };
+    })
+      
     
-   
-    //document.getElementById("bibleFlashCards").onsubmit=handleSubmit
+    document.querySelector('#button2').addEventListener('click', (event)=>{
+      event.preventDefault()
+      handleButtonClick('button2');
+    })
+      
+    document.querySelector("#button3").addEventListener('click', (event)=>{
+      handleButtonClick('button3');
+    })
+
+      
+    
     
     let mycards
     const preloadQuestions=()=>{
@@ -167,12 +171,7 @@
     
       
   }
-  const handleSubmit=(event)=>{
-    if(buttonflag===false){
-      event.preventDefault();//prevent page from refreshing on form submission
-    }
-
-    }
+  
   const handleButtonClick=(button)=>{  
     if(button ==='button1'){
       buttonflag=true
