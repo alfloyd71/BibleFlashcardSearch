@@ -164,10 +164,10 @@ def editVerses(request):
     versereference=""
     submitted=False
     if request.method == 'POST':
-      if('verse' in request.POST):
-        verse=request.POST['verse']
-        verse=verse.replace('\\','')
-        verse=verse.replace('/','')
+        verse=request.POST.get('verse')
+        if(verse):
+            verse=verse.replace('\\','')
+            verse=verse.replace('/','')
 
         form = BibleVerseForm(request.POST)#, request.FILES
 
@@ -175,6 +175,8 @@ def editVerses(request):
         if form.is_valid():
             if(verse!=''):
                 return HttpResponseRedirect('?submitted=True&verse=%s' % verse)
+        else:
+            print('Invalid form ', form.errors)
             
     else:
         form = BibleVerseForm()
