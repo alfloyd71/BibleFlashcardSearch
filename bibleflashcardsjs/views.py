@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 import pythonbible as bible
 from pythonbible.errors import InvalidChapterError
 from bibleflashcardsjs.biblebooks import getBookNames
-import string
+import string, re
 from .names_abbreviated import getBookNamesAbbreviated
 
 def parseVerse(bibleverse):
@@ -168,6 +168,10 @@ def editVerses(request):
         if(verse):
             verse=verse.replace('\\','')
             verse=verse.replace('/','')
+            #(\S+\s\S+) - Captures everything up to and including the second space
+            # \s matches any whitespace chars while \S is just the oposite and represents non-whitespace characters
+            verse=re.sub(r'(^\S+\s\S+)\s', r'\1:', verse)
+            
 
         form = BibleVerseForm(request.POST)#, request.FILES
 
