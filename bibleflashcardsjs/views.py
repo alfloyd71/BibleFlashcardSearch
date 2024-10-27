@@ -170,7 +170,11 @@ def editVerses(request):
             verse=verse.replace('/','')
             #(\S+\s\S+) - Captures everything up to and including the second space
             # \s matches any whitespace chars while \S is just the oposite and represents non-whitespace characters
-            verse=re.sub(r'(^\S+\s\S+)\s', r'\1:', verse)
+            
+            try:
+                int(verse[0])
+            except:
+                verse=re.sub(r'(^\S+\s\S+)\s', r'\1:', verse)
             
 
         form = BibleVerseForm(request.POST)#, request.FILES
