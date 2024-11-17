@@ -15,7 +15,8 @@
     
     <!--This is the css used for the flashcards theme-->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-
+    <link rel="stylesheet" href="/static/bibleflashcardsjs/css/styles.css">
+    <link rel="icon" href="/static/bibleflashcardsjs/images/icons/favicon.ico">
     <script src="/static/bibleflashcardsjs/js/pluralize.js"></script>
     
     {% endblock baseheadtags %}
@@ -24,59 +25,6 @@
     {% block stylehead %}
     {% endblock stylehead %}
 </head>
-
-<style nonce="{{ request.csp_nonce }}">
-    /* Custom CSS */
-    
-    :root {
-        --accent: #6e48ad;
-        --accent-bg: white;
-        --bg: #fff;
-        --text: #212121;
-        --text-light: #585858;
-        --border: #d8dae1;
-        --code: #d81b60;
-        --preformatted: #444;
-        --marked:#ffdd33;
-    }
-
-    article {
-        background-color: var(--marked);
-        border: 1px solid var(--border);
-        border-radius: 5px;
-        padding: 1em;
-        margin: 1em 0;
-    }
-
-    h2 {
-        text-align: center;
-    }
-
-    h2, h4 {
-        margin-top: 0;
-    }
-
-    hr {
-        background: var(--accent);
-        border-color: var(--accent);
-    }
-
-    button,
-    a[role="button"] {
-        color: blue;
-        text-decoration: none;
-    }
-
-    input, select, textarea {
-        width: 100%;
-    }
-    .alert-custom{
-        background-color: #007bff;
-        color: #ffffff;
-    }
-</style>
-
-
 
 <body>
     <header>

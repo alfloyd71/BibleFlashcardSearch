@@ -31,7 +31,7 @@
       <article>
       <form id ="form-flashcards" method = "post" id="bibleFlashCards">
             {% csrf_token %}
-            <fieldset class="border border-secondary p-2">   
+            <!--  <fieldset class="border border-secondary p-2">   -->
               <legend class="w-auto">Create New Card</legend>
                     {{ form.verse }}
                     <button id="button1" class="btn btn-primary">Find Verse</button>
@@ -42,10 +42,9 @@
                     <h2><p id="versereference">{{ versereference }}</p></h2>
                     {% endif %}
               
-               
-        <button id="button2" class="btn btn-primary">Save Verse</button>
-        <button id="button3" class="btn btn-primary">Remove All Verses</button>
-            </fieldset>
+              <button id="button2" class="btn btn-primary">Save Verse</button>
+              <button id="button3" class="btn btn-primary">Remove All Verses</button>
+           </fieldset>
       </form>
   </article>
   </main>
@@ -79,12 +78,10 @@
     let myArrayMatchValue;
     let strmyFlashCards;
     
-   
     document.querySelector('#button1').addEventListener('click', (event)=>{
       handleButtonClick('button1');
     })
       
-    
     document.querySelector('#button2').addEventListener('click', (event)=>{
       event.preventDefault()
       handleButtonClick('button2');
@@ -96,9 +93,6 @@
       handleButtonClick('button3');
     })
 
-      
-    
-    
     let mycards
     const preloadQuestions=()=>{
     

@@ -1,0 +1,55 @@
+/* Custom CSS */
+:root {
+ --accent: #6e48ad;
+ --accent-bg: white;
+ --bg: #fff;
+ --text: #212121;
+ --text-light: #585858;
+ --border: #d8dae1;
+ --code: #d81b60;
+ --preformatted: #444;
+ --marked:#ffdd33;
+}
+
+article {
+ background-color: var(--marked);
+ border: 1px solid var(--border);
+ border-radius: 5px;
+ padding: 1em;
+ margin: 1em 0;
+}
+
+fieldset{
+border: 0px solid #0000ff;
+}
+
+h2 {
+ text-align: center;
+}
+
+h2, h4 {
+ margin-top: 0;
+}
+
+hr {
+ background: var(--accent);
+ border-color: var(--accent);
+}
+
+button,
+a[role="button"] {
+ /*color: linear-gradient(90deg, violet,indigo,blue,green,yellow,orange,red) !important;*/
+ /*background-image: linear-gradient(180deg, rgb(0, 0, 127), rgb(0, 0, 255), rgb(0, 0, 120))  !important;*/
+ color: white !important;
+ background-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)  !important;
+ text-decoration: none;
+ border-radius: 16px !important;
+}
+
+input, select, textarea {
+ width: 100%;
+}
+.alert-custom{
+ background-color: #007bff;
+ color: #ffffff;
+}
