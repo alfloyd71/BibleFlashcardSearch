@@ -34,7 +34,7 @@
             <!--  <fieldset class="border border-secondary p-2">   -->
               <legend class="w-auto">Create New Card</legend>
                     {{ form.verse }}
-                    <button id="button1" class="btn btn-primary">Find Verse</button>
+                    <button class="gradient-button" id="button_find_verse">Find Verse</button>
                     {% if notdefaultbook %}
                     <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
                     {% else %}
@@ -42,8 +42,8 @@
                     <h2><p id="versereference">{{ versereference }}</p></h2>
                     {% endif %}
               
-              <button id="button2" class="btn btn-primary">Save Verse</button>
-              <button id="button3" class="btn btn-primary">Remove All Verses</button>
+              <button class="gradient-button" id="button2">Save Verse</button>
+              <button class="gradient-button" id="button3">Remove All Verses</button>
            </fieldset>
       </form>
   </article>
@@ -78,8 +78,8 @@
     let myArrayMatchValue;
     let strmyFlashCards;
     
-    document.querySelector('#button1').addEventListener('click', (event)=>{
-      handleButtonClick('button1');
+    document.querySelector('#button_find_verse').addEventListener('click', (event)=>{
+      handleButtonClick('button_find_verse');
     })
       
     document.querySelector('#button2').addEventListener('click', (event)=>{
@@ -169,12 +169,12 @@
   }
   
   const handleButtonClick=(button)=>{  
-    if(button ==='button1'){
+    if(button ==='button_find_verse'){
       buttonflag=true
     }
     if(button==='button2'){
       buttonflag=false
-      saveToLocS()
+      saveToLocalStorage()
     }
     if(button==='button3'){
       buttonflag=false
@@ -189,7 +189,7 @@
       window.alert("All flashcards have been removed from your web browser")
     }
   }
-  const saveToLocS=()=>{
+  function saveToLocalStorage(){
       let match=false
       try{
         reference=capitalizeWords(reference)
@@ -223,12 +223,8 @@
       localStorage.clear()
       localStorage.setItem('bible-flash-cards',JSON.stringify(mycards))//convert mycards  back into a string
 
-      //reload the page
-      //location.reload()
-
-      
-
-
+  
+    // end saveToLocalStorage()
     }
 
   </script>

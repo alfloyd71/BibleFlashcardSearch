@@ -173,7 +173,10 @@ def editVerses(request):
             
             try:
                 int(verse[0])
+                #1 John 3:16
+                verse=re.sub(r'(^\d+\s\S+\s\S+)\s', r'\1:', verse)
             except:
+                #John 3:16
                 verse=re.sub(r'(^\S+\s\S+)\s', r'\1:', verse)
             
 
