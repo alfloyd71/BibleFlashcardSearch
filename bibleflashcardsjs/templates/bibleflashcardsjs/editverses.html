@@ -34,7 +34,7 @@
             <!--  <fieldset class="border border-secondary p-2">   -->
               <legend class="w-auto">Create New Card</legend>
                     {{ form.verse }}
-                    <button class="gradient-button" id="button_find_verse">Find Verse</button>
+                    <button class="gradient-button" id="button-find-verse">Find Verse</button>
                     {% if notdefaultbook %}
                     <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
                     {% else %}
@@ -42,8 +42,8 @@
                     <h2><p id="versereference">{{ versereference }}</p></h2>
                     {% endif %}
               
-              <button class="gradient-button" id="button2">Save Verse</button>
-              <button class="gradient-button" id="button3">Remove All Verses</button>
+              <button class="gradient-button" id="button-save-verse">Save Verse</button>
+              <button class="gradient-button" id="button-remove-verses">Remove All Verses</button>
            </fieldset>
       </form>
   </article>
@@ -78,19 +78,19 @@
     let myArrayMatchValue;
     let strmyFlashCards;
     
-    document.querySelector('#button_find_verse').addEventListener('click', (event)=>{
-      handleButtonClick('button_find_verse');
+    document.querySelector('#button-find-verse').addEventListener('click', (event)=>{
+      handleButtonClick('button-find-verse');
     })
       
-    document.querySelector('#button2').addEventListener('click', (event)=>{
+    document.querySelector('#button-save-verse').addEventListener('click', (event)=>{
       event.preventDefault()
-      handleButtonClick('button2');
+      handleButtonClick('button-save-verse');
       // Reload the page
       window.location.reload();
     })
       
-    document.querySelector("#button3").addEventListener('click', (event)=>{
-      handleButtonClick('button3');
+    document.querySelector("#button-remove-verses").addEventListener('click', (event)=>{
+      handleButtonClick('button-remove-verses');
     })
 
     let mycards
@@ -169,14 +169,14 @@
   }
   
   const handleButtonClick=(button)=>{  
-    if(button ==='button_find_verse'){
+    if(button ==='button-find-verse'){
       buttonflag=true
     }
-    if(button==='button2'){
+    if(button==='button-save-verse'){
       buttonflag=false
       saveToLocalStorage()
     }
-    if(button==='button3'){
+    if(button==='button-remove-verses'){
       buttonflag=false
       clearLocS()
     }
@@ -226,6 +226,14 @@
   
     // end saveToLocalStorage()
     }
+
+    const button_find_verse = document.querySelector('#button-find-verse')
+    const button_save_verse = document.querySelector('#button-save-verse')
+    const button_remove_verses = document.querySelector('#button-remove-verses')
+    button_find_verse.setAttribute('data-button-text', button_find_verse.textContent)
+    button_save_verse.setAttribute('data-button-text', button_save_verse.textContent)
+    button_remove_verses.setAttribute('data-button-text', button_remove_verses.textContent)
+    
 
   </script>
 

@@ -1,4 +1,4 @@
-/* Custom CSS */
+/* custom global css variables that are at the <html> element root level or scope */
 :root {
  --accent: #6e48ad;
  --accent-bg: white;
@@ -55,7 +55,7 @@ hr {
 
 .gradient-button::before {
   /* Create a pseudo-element to hold the gradient for the text */
-  content: attr(data-location);
+  content: attr(data-button-text);
   position: absolute;
   top: 0em;
   left: 0;
@@ -69,14 +69,8 @@ hr {
   pointer-events: none; /* Ensure this pseudo-element doesn't block interaction with the text */
 }
 
-button,
-a[role="button"] {
- /*color: linear-gradient(90deg, violet,indigo,blue,green,yellow,orange,red) !important;*/
- /*background-image: linear-gradient(180deg, rgb(0, 0, 127), rgb(0, 0, 255), rgb(0, 0, 120))  !important;*/
- color: #dadada !important;
- background-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)  !important;
- text-decoration: none;
- border-radius: 16px !important;
+button{
+ border-radius: 1em !important;
 }
 
 input, select, textarea {
