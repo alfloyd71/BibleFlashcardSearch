@@ -80,3 +80,7 @@ input, select, textarea {
  background-color: #007bff;
  color: #ffffff;
 }
+
+#text-verse{
+ width: 12em;
+}

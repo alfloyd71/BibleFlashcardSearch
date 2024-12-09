@@ -3,150 +3,153 @@ import string
 
 def getBookNames(bookname="GENESIS"):
     """returns number of chapters for each book of the Bible that is specified inside variable bookname"""
-    numofchaps=pythonbible.get_number_of_chapters(pythonbible.Book.GENESIS)
+    #book_name=pythonbible.get_number_of_chapters(pythonbible.Book.GENESIS)
+    book_name=False
+    nobook_name=False
     match bookname:
         # Old Testament – 929 chapters
         case "GENESIS" :
-            numofchaps=pythonbible.Book.GENESIS
+            book_name=pythonbible.Book.GENESIS
         case "EXODUS" :
-            numofchaps=pythonbible.Book.EXODUS
+            book_name=pythonbible.Book.EXODUS
         case "LEVITICUS" :
-            numofchaps=pythonbible.Book.LEVITICUS
+            book_name=pythonbible.Book.LEVITICUS
         case "NUMBERS" :
-            numofchaps=pythonbible.Book.NUMBERS
+            book_name=pythonbible.Book.NUMBERS
         case "DEUTERONOMY" :
-            numofchaps=pythonbible.Book.DEUTERONOMY
+            book_name=pythonbible.Book.DEUTERONOMY
         case "JOSHUA" :
-            numofchaps=pythonbible.Book.JOSHUA
+            book_name=pythonbible.Book.JOSHUA
         case "JUDGES" :
-            numofchaps=pythonbible.Book.JUDGES
+            book_name=pythonbible.Book.JUDGES
         case "RUTH" :
-            numofchaps=pythonbible.Book.RUTH
+            book_name=pythonbible.Book.RUTH
         case "1 SAMUEL" :
-            numofchaps=pythonbible.Book.SAMUEL_1
+            book_name=pythonbible.Book.SAMUEL_1
         case "2 SAMUEL" :
-            numofchaps=pythonbible.Book.SAMUEL_2
+            book_name=pythonbible.Book.SAMUEL_2
         case "1 KINGS" :
-            numofchaps=pythonbible.Book.KINGS_1
+            book_name=pythonbible.Book.KINGS_1
         case "2 KINGS" :
-            numofchaps=pythonbible.Book.KINGS_2
+            book_name=pythonbible.Book.KINGS_2
         case "1 CHRONICLES" :
-            numofchaps=pythonbible.Book.CHRONICLES_1
+            book_name=pythonbible.Book.CHRONICLES_1
         case "2 CHRONICLES" :
-            numofchaps=pythonbible.Book.CHRONICLES_2
+            book_name=pythonbible.Book.CHRONICLES_2
         case "EZRA" :
-            numofchaps=pythonbible.Book.EZRA
+            book_name=pythonbible.Book.EZRA
         case "NEHEMIAH" :
-            numofchaps=pythonbible.Book.NEHEMIAH
+            book_name=pythonbible.Book.NEHEMIAH
         case "ESTHER" :
-            numofchaps=pythonbible.Book.ESTHER
+            book_name=pythonbible.Book.ESTHER
         case "JOB" :
-            numofchaps=pythonbible.Book.JOB
+            book_name=pythonbible.Book.JOB
         case "PSALMS" :
-            numofchaps=pythonbible.Book.PSALMS
+            book_name=pythonbible.Book.PSALMS
         case "PROVERBS" :
-            numofchaps=pythonbible.Book.PROVERBS
+            book_name=pythonbible.Book.PROVERBS
         case "ECCLESIASTES" :
-            numofchaps=pythonbible.Book.ECCLESIASTES
+            book_name=pythonbible.Book.ECCLESIASTES
         case "SONG" :
-            numofchaps=pythonbible.Book.SONG_OF_SONGS
+            book_name=pythonbible.Book.SONG_OF_SONGS
         case "SONG OF SOLOMON" :
-            numofchaps=pythonbible.Book.SONG_OF_SONGS
+            book_name=pythonbible.Book.SONG_OF_SONGS
         case "ISAIAH" :
-            numofchaps=pythonbible.Book.ISAIAH
+            book_name=pythonbible.Book.ISAIAH
         case "JEREMIAH" :
-            numofchaps=pythonbible.Book.JEREMIAH
+            book_name=pythonbible.Book.JEREMIAH
         case "LAMENTATIONS" :
-            numofchaps=pythonbible.Book.LAMENTATIONS
+            book_name=pythonbible.Book.LAMENTATIONS
         case "EZEKIEL" :
-            numofchaps=pythonbible.Book.EZEKIEL
+            book_name=pythonbible.Book.EZEKIEL
         case "DANIEL" :
-            numofchaps=pythonbible.Book.DANIEL
+            book_name=pythonbible.Book.DANIEL
         case "HOSEA" :
-            numofchaps=pythonbible.Book.HOSEA
+            book_name=pythonbible.Book.HOSEA
         case "JOEL" :
-            numofchaps=pythonbible.Book.JOEL
+            book_name=pythonbible.Book.JOEL
         case "AMOS" :
-            numofchaps=pythonbible.Book.AMOS
+            book_name=pythonbible.Book.AMOS
         case "OBADIAH" :
-            numofchaps=pythonbible.Book.OBADIAH
+            book_name=pythonbible.Book.OBADIAH
         case "JONAH" :
-            numofchaps=pythonbible.Book.JONAH
+            book_name=pythonbible.Book.JONAH
         case "MICAH" :
-            numofchaps=pythonbible.Book.MICAH
+            book_name=pythonbible.Book.MICAH
         case "NAHUM" :
-            numofchaps=pythonbible.Book.NAHUM
+            book_name=pythonbible.Book.NAHUM
         case "HABAKKUK" :
-            numofchaps=pythonbible.Book.HABAKKUK
+            book_name=pythonbible.Book.HABAKKUK
         case "ZEPHANIAH" :
-            numofchaps=pythonbible.Book.ZEPHANIAH
+            book_name=pythonbible.Book.ZEPHANIAH
         case "HAGGAI" :
-            numofchaps=pythonbible.Book.HAGGAI
+            book_name=pythonbible.Book.HAGGAI
         case "ZECHARIAH" :
-            numofchaps=pythonbible.Book.ZECHARIAH
+            book_name=pythonbible.Book.ZECHARIAH
         case "MALACHI" :
-            numofchaps=pythonbible.Book.MALACHI
+            book_name=pythonbible.Book.MALACHI
 
         #New Testament – 260 chapters
         case "MATTHEW" :
-            numofchaps=pythonbible.Book.MATTHEW
+            book_name=pythonbible.Book.MATTHEW
         case "MARK" :
-            numofchaps=pythonbible.Book.MARK
+            book_name=pythonbible.Book.MARK
         case "LUKE" :
-            numofchaps=pythonbible.Book.LUKE
+            book_name=pythonbible.Book.LUKE
         case "JOHN" :
-            numofchaps=pythonbible.Book.JOHN
+            book_name=pythonbible.Book.JOHN
         case "ACTS" :
-            numofchaps=pythonbible.Book.ACTS
+            book_name=pythonbible.Book.ACTS
         case "ROMANS" :
-            numofchaps=pythonbible.Book.ROMANS
+            book_name=pythonbible.Book.ROMANS
         case "1 CORINTHIANS" :
-            numofchaps=pythonbible.Book.CORINTHIANS_1
+            book_name=pythonbible.Book.CORINTHIANS_1
         case "2 CORINTHIANS" :
-            numofchaps=pythonbible.Book.CORINTHIANS_2
+            book_name=pythonbible.Book.CORINTHIANS_2
         case "GALATIANS" :
-            numofchaps=pythonbible.Book.GALATIANS
+            book_name=pythonbible.Book.GALATIANS
         case "EPHESIANS" :
-            numofchaps=pythonbible.Book.EPHESIANS
+            book_name=pythonbible.Book.EPHESIANS
         case "PHILIPPIANS" :
-            numofchaps=pythonbible.Book.PHILIPPIANS
+            book_name=pythonbible.Book.PHILIPPIANS
         case "COLOSSIANS" :
-            numofchaps=pythonbible.Book.COLOSSIANS
+            book_name=pythonbible.Book.COLOSSIANS
         case "1 THESSALONIANS" :
-            numofchaps=pythonbible.Book.THESSALONIANS_1
+            book_name=pythonbible.Book.THESSALONIANS_1
         case "2 THESSALONIANS" :
-            numofchaps=pythonbible.Book.THESSALONIANS_2
+            book_name=pythonbible.Book.THESSALONIANS_2
         case "1 TIMOTHY" :
-            numofchaps=pythonbible.Book.TIMOTHY_1
+            book_name=pythonbible.Book.TIMOTHY_1
         case "2 TIMOTHY" :
-            numofchaps=pythonbible.Book.TIMOTHY_2
+            book_name=pythonbible.Book.TIMOTHY_2
         case "TITUS" :
-            numofchaps=pythonbible.Book.TITUS
+            book_name=pythonbible.Book.TITUS
         case "PHILEMON" :
-            numofchaps=pythonbible.Book.PHILEMON
+            book_name=pythonbible.Book.PHILEMON
         case "HEBREWS" :
-            numofchaps=pythonbible.Book.HEBREWS
+            book_name=pythonbible.Book.HEBREWS
         case "JAMES" :
-            numofchaps=pythonbible.Book.JAMES
+            book_name=pythonbible.Book.JAMES
         case "1 PETER" :
-            numofchaps=pythonbible.Book.PETER_1
+            book_name=pythonbible.Book.PETER_1
         case "2 PETER" :
-            numofchaps=pythonbible.Book.PETER_2
+            book_name=pythonbible.Book.PETER_2
         case "1 JOHN" :
-            numofchaps=pythonbible.Book.JOHN_1
+            book_name=pythonbible.Book.JOHN_1
         case "2 JOHN" :
-            numofchaps=pythonbible.Book.JOHN_2
+            book_name=pythonbible.Book.JOHN_2
         case "3 JOHN" :
-            numofchaps=pythonbible.Book.JOHN_3
+            book_name=pythonbible.Book.JOHN_3
         case "JUDE" :
-            numofchaps=pythonbible.Book.JUDE
+            book_name=pythonbible.Book.JUDE
         case "REVELATION" :
-            numofchaps=pythonbible.Book.REVELATION
+            book_name=pythonbible.Book.REVELATION
 
-    if numofchaps==50:
-        numofchaps=pythonbible.Book.PSALMS
+    if(not book_name):
+        book_name=pythonbible.Book.REVELATION
+        nobook_name=True
 
-    return numofchaps
+    return book_name, nobook_name
 
 #bookname=input("Enter a book name from the King James Version(KJV) of the bible.\n")
 bookname="genesis"

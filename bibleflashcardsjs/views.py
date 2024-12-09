@@ -93,7 +93,7 @@ def parseNumVerse(chapterandverse):
 
 def getVerse(verse):
   #verse="2 peter 1:7"
-  versetest=""
+  bible_verse=""
   versewithnum="2 timothy 1:5"
   bookname=""
   chapter=""
@@ -120,26 +120,25 @@ def getVerse(verse):
   if not startswithnum:
     bookname=bookname.strip()
   
- 
-  #bookname="MATTHEW"
   bookname=getBookNamesAbbreviated(bookname=bookname)
   bookname=bookname.upper()
   print('bookname testing line 50',bookname)
-  versetest=str(bookname)+" "+str(chapter)+":"+str(verse)
-  versetest=string.capwords(versetest)
+  bible_verse=str(bookname)+" "+str(chapter)+":"+str(verse)
+  bible_verse=string.capwords(bible_verse)
   
-  book = getBookNames(bookname=bookname)
+  book, nobook_name = getBookNames(bookname=bookname)
 
   print('let us do a book check ',book)
   verse_text=""
 
-  
   try:
-    print('book',book)
-    print('chapter',chapter)
-    print('verse',verse)
-    chapter=int(chapter)
-    verse=int(verse)
+    if(nobook_name):
+     chapter=21
+     verse=4
+    else:
+     chapter=int(chapter)
+     verse=int(verse)
+    
     reference = bible.NormalizedReference(book, chapter, verse, chapter, verse)#Genesis 1:1-4
     verse_ids = bible.convert_reference_to_verse_ids(reference)
 
@@ -154,7 +153,7 @@ def getVerse(verse):
     print('This is an Invalid Chapter')
 
   formattedverse=verse_text 
-  return formattedverse,versetest
+  return formattedverse,bible_verse
 
 # edit kjv Bible verses
 def editVerses(request):
@@ -232,4 +231,3 @@ def getBox(request):
     
     
 
-        
