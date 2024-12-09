@@ -135,6 +135,7 @@ def getVerse(verse):
     if(nobook_name):
      chapter=21
      verse=4
+     bible_verse=string.capwords('Revelation 21:4')
     else:
      chapter=int(chapter)
      verse=int(verse)
