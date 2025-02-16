@@ -170,6 +170,9 @@ def editVerses(request):
             verse=verse.replace('/','')
             #(\S+\s\S+) - Captures everything up to and including the second space
             # \s matches any whitespace chars while \S is just the oposite and represents non-whitespace characters
+
+            #strip off any trailing space with right strip
+            verse=verse.rstrip()
             
             try:
                 int(verse[0])
