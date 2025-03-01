@@ -1,0 +1,39 @@
+<!-- bibleflashcardsjs/templates/bibleflashcardsjs/navigation-javascript.html -->
+
+<section class="flashcards-container">
+ <h2>Your Flashcards</h2>
+ <div class="boxes">
+   <article class="box">
+     <h3><a id="first-box" href="{% url 'showCards' %}?box=1">Box 1 (New Material</a></h3>
+     <ul id="box1-list">
+       <!-- New flashcards here -->
+     </ul>
+   </article>
+   <article class="box">
+     <h3><a id="second-box" href="{% url 'showCards' %}?box=2">Box 2 (Review</a></h3>
+     <ul id="box2-list">
+       <!-- Review flashcards here -->
+     </ul>
+   </article>
+   <article class="box">
+     <h3><a id="third-box" href="{% url 'showCards' %}?box=3">Box 3 (Mastery</a></h3>
+     <ul id="box3-list">
+       <!-- Mastery flashcards here -->
+     </ul>
+   </article>
+   <article class="box">
+    <h3><a id="fourth-box" href="{% url 'showCards' %}?box=4">Box 4 (Mastery</a></h3>
+    <ul id="box2-list">
+      <!-- Review flashcards here -->
+    </ul>
+  </article>
+  <article class="box">
+    <h3><a id="fifth-box" href="{% url 'showCards' %}?box=5">Box 5 (Mastery</a></h3>
+    <ul id="box3-list">
+      <!-- Mastery flashcards here -->
+    </ul>
+  </article>
+ </div>
+</section>
+
+<script src="/static/bibleflashcardsjs/js/tally-boxes.js" ></script>

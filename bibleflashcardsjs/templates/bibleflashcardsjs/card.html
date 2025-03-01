@@ -1,55 +1,28 @@
-<!-- bibleflashcardsjs/card.html -->
-{% block stylehead %}
-<style nonce="{{ request.csp_nonce }}">
-    html, body{
-        padding: 0%;
-        display: block;
-        margin-top: 1%;
-    }
-    #boxes-main{
-      display: block;
-      text-align: center; /* center all children of the <boxes-main> element */
-      padding: 0%;
-      margin: 0%;
-      width: 100%;
-    }
-    
-    #button-check, #button-x{
-        margin-top: 1%;
-        display: inline;
-        height: 6vh;/*height = 64px and width = 232px*/
-        width: 42vw;
-    }
-    
-    #hyperlink-check, #hyperlink-x{
-        
-        color: #eee;
-    }
+{% block head %}
+ <!-- bibleflashcardsjs/card.html -->
+ <link rel="stylesheet" href="/static/bibleflashcardsjs/css/box-styles.css">
 
-    #details-reveal-answer{
-        margin-bottom: 1em;
-    }
-   
+{% endblock head %}
+
+<h3 id="boxnum"></h3>
+<article id="box-article">
+  <h4 id="card-question"></h4>
+  <p id="card-answer-transparent"></p>
   
-</style>
-
-{% endblock stylehead %}
-<main id="boxes-main">
-  <h3 id="boxnum"></h3>
-  <article id="box-article">
-    <h4 id="card-question"></h4>
-    <p id="card-answer-transparent"></p>
-    
-    <details id="details-reveal-answer">
-        <summary>Reveal Answer</summary>
-        <p id="card-answer">{{ card.answer }}</p>
-    </details>
-    
-    <a id="hyperlink-check" href="{% url 'showFlashcards'%}"><button id="button-check" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/check-solid.svg"> I Know</button></a>
-    <a id="hyperlink-x" href="{% url 'showFlashcards'%}"><button id="button-x" class="btn btn-primary"><img src="/static/bibleflashcardsjs/images/icons/x-solid.svg"> I Don't Know</button></a>
-       
-        
-        <hr>
-        
+  <details id="details-reveal-answer">
+      <summary>Reveal Answer</summary>
+      <p id="card-answer">{{ card.answer }}</p>
+  </details>
+  
+  <div class="flex-row">
+    <div> 
+      <a id="hyperlink-check" href=""><button><image src="/static/bibleflashcardsjs/images/icons/check.png" aria-label="check yes" id="button-check"></button></a>
+    </div>
+    <div>
+      <a id="hyperlink-x" href=""><button><image src="/static/bibleflashcardsjs/images/icons/x.png" aria-label="x no" id="button-x"></button></a>
+    </div>
+          
+    <hr>
+      
 </article>
-</main>
+</div>

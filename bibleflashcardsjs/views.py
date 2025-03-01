@@ -227,11 +227,3 @@ def showCards(request):
         
 
     return render(request, "bibleflashcardsjs/index.html", context)
-
-def getBox(request):
-    template_name = "bibleflashcardsjs/box.html"
-
-    return render(request, template_name)
-    
-    
-

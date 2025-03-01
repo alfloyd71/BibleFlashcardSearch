@@ -1,0 +1,19 @@
+#boxes-main{
+ display: none;
+ text-align: center; /* center all children of the <boxes-main> element */
+ padding: 0%;
+ margin: 0%;
+ width: 100%;
+}
+
+#button-check, #button-x{
+ color: #eee;
+}
+
+#details-reveal-answer{
+ margin-bottom: 1em;
+}
+
+#button-check, #button-x{
+cursor: pointer;
+}

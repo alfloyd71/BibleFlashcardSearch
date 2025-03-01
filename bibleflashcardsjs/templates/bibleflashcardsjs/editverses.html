@@ -1,22 +1,4 @@
-{% extends 'bibleflashcardsjs/base-javascript.html' %}
-
-{% block customheadtags %}
-
-<!--bootstrap minified reduced size css version-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" href="../../static/bibleflashcardsjs/css/styles.css">
-
-<!--links to javascript files-->
-<!--the latest version jquery 3.5 should come before bootstap-min.js-->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<!--Popper.js is a popular JavaScript library used for positioning tooltips and popovers in web applications.-->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-<!--default Bible verses are in questions.js code snippet-->
-<script src="/static/bibleflashcardsjs/js/questions.js"></script>
-
-{% endblock customheadtags %}
+{% extends 'bibleflashcardsjs/base.html' %}
 
 {% block title %}
 {{verse_text}}
@@ -27,49 +9,57 @@
 {% endblock description %}
 
 {% block content %}
-  <main id="main-edit-verses">
+<header>
+ <nav>
+   <h1 class="app-title">Bible Flashcard Search (BFS)</h1>
+ </nav>
+</header>
 
-      <article>
-      <form id ="form-flashcards" method = "post" id="bibleFlashCards">
-            {% csrf_token %}
-            <!--  <fieldset class="border border-secondary p-2">   -->
-              <legend class="w-auto">Create New Card</legend>
-                    {{ form.verse }}
-                    <button class="gradient-button" id="button-find-verse">Find Verse</button>
-                    {% if notdefaultbook %}
-                    <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
-                    {% else %}
-                    <p><h3 class="alert alert-custom"><span id="verse-text">{{ verse_text }}</span></h3></p>
-                    <h2><p id="versereference">{{ versereference }}</p></h2>
-                    {% endif %}
-              
-              <button class="gradient-button" id="button-save-verse">Save Verse</button>
-              <button class="gradient-button" id="button-remove-verses">Remove All Verses</button>
-           </fieldset>
-      </form>
-  </article>
-  </main>
-    
-{% endblock content %}
+<main>
+ <section class="hero">
+   <div>
+     <a href="{% url 'showCards' %}" role="button">
+      <button class="add-flashcard-btn">All Cards</button>
+     </a>
+   </div>
+  <span id="insert-html-here"></span>
+ </section>  
+ <section class="hero">
+   <h2>Verse Search</h2>
+   <p>Find any verse by reference (e.g., John 3:16).</p>
+   <form id ="form-flashcards" method = "post" id="bibleFlashCards">
+    {% csrf_token %}
+    <!--  <fieldset class="border border-secondary p-2">   -->
+     <legend class="w-auto">Create New Card</legend>
+     <label for="text-verse">Verse Reference:</label>
+     {{ form.verse }}
+     <button id="button-find-verse">Search</button>
+   </form>
+ </section>
 
+ <section class="results">
+   <h2>Verse Results</h2>
+   <div id="verse-display">
+     <!-- The retrieved verse text will be displayed here -->
+     {% if notdefaultbook %}
+     <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
+     {% else %}
+     <p><h3 class="alert alert-custom"><span id="verse-text">{{ verse_text }}</span></h3></p>
+     <h2><p id="versereference">{{ versereference }}</p></h2>
+     {% endif %}
+   </div>
+   <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
+   <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
+ </section>
 
+ {% include 'bibleflashcardsjs/box-navigation.html' %}   
+ 
+</main>
 
-<!-- footer goes here...-->
-{% block footer %}
-<footer class="footer py-5">
-  <div class="container">
-    <div class="row">
-       <div class="col-12 mx-auto text-center mt-1">
-          <p class="mb-0 text-secondary">
-            &copy2024 YourWebsite.com   
-           </p>
-        </div>
-    
-    </div>
-  </div>
+<footer>
+ <p>&copy; 2025 freesmartphoneapps.com. All rights reserved.</p>
 </footer>
-
-{% endblock footer %}
+{% endblock content %}
 
 {% block script %}
   <script nonce="{{ request.csp_nonce }}">
@@ -91,7 +81,9 @@
     })
       
     document.querySelector("#button-remove-verses").addEventListener('click', (event)=>{
+      event.preventDefault()
       handleButtonClick('button-remove-verses');
+      window.location.reload();
     })
 
     let mycards
@@ -237,5 +229,4 @@
 
   </script>
 
-<script src="/static/bibleflashcardsjs/js/tally-boxes.js" ></script>
 {% endblock script %}

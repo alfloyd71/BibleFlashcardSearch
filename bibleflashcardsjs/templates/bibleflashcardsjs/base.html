@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>
+    {% block title %}
+        Flashcards
+    {% endblock title %}
+    </title>
+    {% block description %}
+    {% endblock description %}
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no width=device-width, initial-scale=1">
+    
+    <!--This is the css used for the flashcards theme-->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="/static/bibleflashcardsjs/css/styles.css">
+    <link rel="icon" href="/static/bibleflashcardsjs/images/icons/favicon.ico">
+    <script src="/static/bibleflashcardsjs/js/pluralize.js"></script>
+    
+    {% block head %}
+    {% endblock head %}
+
+  </head>
+
+  <body>
+
+    {% block content %}     
+    {% endblock content %}
+
+    {% block footer %}
+    {% endblock footer %}
+      
+    {% block script %}
+    {% endblock script %}
+
+  </body>
+
+</html>
