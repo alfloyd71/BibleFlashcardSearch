@@ -1,4 +1,4 @@
-def getBookNamesAbbreviated(bookname="psalm"):
+def getBookNamesAbbreviated(bookname="psalms"):
     bookname=bookname.upper()
     match bookname:
         case 'GE':
@@ -64,9 +64,9 @@ def getBookNamesAbbreviated(bookname="psalm"):
         case "JB":
             bookname="job"
         case "PS":
-            bookname="psalm"
+            bookname="psalms"
         case "PSA":
-            bookname="psalm"
+            bookname="psalms"
         case "PR":
             bookname="proverbs"
         case "PRO":

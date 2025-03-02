@@ -24,11 +24,6 @@ class FlashCardGlobals{
 
 class EditVersesGlobals{
   constructor (){
-    /*let inputarea, verse, reference,verses
-   let buttonflag=false
-   let versesToAppend;let parsedVerses;
-   let myArrayMatchValue;
-   let strmyFlashCards;*/
    this.inputArea, this.verse, this.reference, this.verses;
    this.buttonFlag=false;
    this.versesToAppend, this.parsedVerses;
