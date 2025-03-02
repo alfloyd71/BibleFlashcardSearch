@@ -42,10 +42,10 @@
 
  <section class="results">
    <h2>Verse Results</h2>
-   <div id="verse-display">
+   <div class="verse-display flex-col">
      <!-- The retrieved verse text will be displayed here -->
-     <p><div class="verse-display"><span id="verse-text">{{ verse_text }}</span></div></p>
-     <h2><p id="versereference">{{ versereference }}</p></h2>
+     <div id="verse-display"><span id="verse-text">{{ verse_text }}</span></div>
+     <div id="versereference">{{ versereference }}</div>
    </div>
    <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
    <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>

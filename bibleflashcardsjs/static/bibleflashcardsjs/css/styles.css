@@ -89,7 +89,7 @@ input, select, textarea {
  width: 100%;
 }
 
-#verse-display {
+.verse-display {
  padding: 1rem;
  font-size: 2rem;
  font-weight: bold;
@@ -119,4 +119,12 @@ a, a:visited{
  justify-content: flex-start;
  align-items: center;
  gap: 4em;
+}
+
+.flex-col{
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-start;
+ align-items: center;
+ gap: 1em;
 }
