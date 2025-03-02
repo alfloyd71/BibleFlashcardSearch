@@ -15,4 +15,5 @@ Box Levels: Each box represents a different level of familiarity or mastery:
 ![Bible Flashcard Search Image 2](https://www.freesmartphoneapps.com/static/projects/images/bible-flashcard-search/bible-flashcard-search-screenshot2.png "Bible Flashcard Search Image 2")
 ![Bible Flashcard Search Image 3](https://www.freesmartphoneapps.com/static/projects/images/bible-flashcard-search/bible-flashcard-search-screenshot3.png "Bible Flashcard Search Image 3")
 
-https://www.freesmartphoneapps.com/bibleflashcards/
+## Flashcard App Demo 
+Explore the features of our Bible Flashcard App by checking out the live demo. [Click here to see a demo of the Bible Flashcard App](https://www.freesmartphoneapps.com/bibleflashcards/)
