@@ -2,7 +2,7 @@
 
 {% block title %}
 {{verse_text}}
-{% endblock title%}
+{% endblock title %}
 
 {% block description %}
     <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
@@ -44,12 +44,8 @@
    <h2>Verse Results</h2>
    <div id="verse-display">
      <!-- The retrieved verse text will be displayed here -->
-     {% if notdefaultbook %}
-     <p><h3 class="alert alert-custom">The book of {{ bookname }} has {{ numofchaps }} chapters.</h3></p>
-     {% else %}
-     <p><h3 class="alert alert-custom"><span id="verse-text">{{ verse_text }}</span></h3></p>
+     <p><div class="verse-display"><span id="verse-text">{{ verse_text }}</span></div></p>
      <h2><p id="versereference">{{ versereference }}</p></h2>
-     {% endif %}
    </div>
    <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
    <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
