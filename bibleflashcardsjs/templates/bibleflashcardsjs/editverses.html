@@ -8,6 +8,9 @@
     <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
 {% endblock description %}
 
+{% block head %}
+{% endblock head %}
+
 {% block content %}
 <header>
  <nav>
@@ -51,182 +54,15 @@
    <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
    <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
  </section>
-
+ <script src="../../static/bibleflashcardsjs/js/edit-verses.js"></script>
  {% include 'bibleflashcardsjs/box-navigation.html' %}   
  
 </main>
 
 <footer>
- <p>&copy; 2025 freesmartphoneapps.com. All rights reserved.</p>
+  &copy;2025 YourWebsite.com 
 </footer>
 {% endblock content %}
 
 {% block script %}
-  <script nonce="{{ request.csp_nonce }}">
-    let inputarea, verse, reference,verses
-    let buttonflag=false
-    let versesToAppend;let parsedVerses;
-    let myArrayMatchValue;
-    let strmyFlashCards;
-    
-    document.querySelector('#button-find-verse').addEventListener('click', (event)=>{
-      handleButtonClick('button-find-verse');
-    })
-      
-    document.querySelector('#button-save-verse').addEventListener('click', (event)=>{
-      event.preventDefault()
-      handleButtonClick('button-save-verse');
-      // Reload the page
-      window.location.reload();
-    })
-      
-    document.querySelector("#button-remove-verses").addEventListener('click', (event)=>{
-      event.preventDefault()
-      handleButtonClick('button-remove-verses');
-      window.location.reload();
-    })
-
-    let mycards
-    const preloadQuestions=()=>{
-    
-      mycards = [
-        {question:"And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away.",
-        answer:"Revelation 21:4", box:1},
-        {question:"I can do all things through Christ which strengtheneth me.",
-        answer:"Philippians 4:13 KJV", box:4},
-        {question:"Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
-        answer:"Proverbs 3:5 KJV", box:4},
-        
-    
-    ];
-    }
-  
-  const capitalizeWords=(inputString)=>{
-    return inputString.replace(/\b\w/g, function(match) {
-        return match.toUpperCase();
-    });
-  }
-
-  window.onload = function () {
-    const first_box = document.getElementById("first-box")
-    const second_box = document.getElementById("second-box")
-    const third_box = document.getElementById("third-box")
-    const fourth_box = document.getElementById("fourth-box")
-    const fifth_box = document.getElementById("fifth-box")
-
-    preloadQuestions()
-    
-    inputarea=document.getElementById('questions-input-area')
-    verse_text=document.getElementById('verse-text').innerHTML
-    verse=""
-    reference=document.getElementById('versereference').innerHTML
-    
-    versesToAppend=[{'question':'And I stood upon the sand of the sea, and saw a beast rise up out of the sea, having seven heads \
-     and ten horns, and upon his horns ten crowns, and upon his heads the name of blasphemy.','answer':'Revelation 13:1'},
-     {'question':'test question','answer':'answered question',   }]
-    
-   
-    versesToAppend=JSON.parse(localStorage.getItem('bible-flash-cards')) || []
-    mycards=versesToAppend
-   
-    parsedVerses=versesToAppend// converts versesToAppend from a string to an array
-
-    tallyBoxes(mycards)
-
-
-    
-    // Using a for loop to iterate over the array
-    try{
-      for (let i = 0; i < parsedVerses.length; i++) {
-        // no need to delcare .question and .answer just reference parsedVerses[i]
-        //myArrayMatchValue.push(parsedVerses[i])
-        // Accessing each element using the index i
-        strmyFlashCards=JSON.stringify(mycards)
-        if(strmyFlashCards.includes(parsedVerses[i].answer)){
-          console.log('verse already exists in mycards')
-        }
-        else{
-          mycards.push(parsedVerses[i])
-          console.log('not in mycards appending')
-        }
-        
-        }
-     }
-     catch (error){
-      console.error("An error occurred:", error.message);
-     }
-      
-    
-      
-  }
-  
-  const handleButtonClick=(button)=>{  
-    if(button ==='button-find-verse'){
-      buttonflag=true
-    }
-    if(button==='button-save-verse'){
-      buttonflag=false
-      saveToLocalStorage()
-    }
-    if(button==='button-remove-verses'){
-      buttonflag=false
-      clearLocS()
-    }
-    
-  }
-  const clearLocS=()=>{
-    const confirm_remove_all=window.confirm("Would you like to remove all of the verses from your flashcards?")
-    if(confirm_remove_all){
-      localStorage.clear()
-      window.alert("All flashcards have been removed from your web browser")
-    }
-  }
-  function saveToLocalStorage(){
-      let match=false
-      try{
-        reference=capitalizeWords(reference)
-        for (let i=0;i<parsedVerses.length;i++){
-          if(parsedVerses[i].answer===reference){
-            match=true
-          }
-         }
-      } 
-      catch (error){
-        console.error("An error occurred:", error.message);
-      }
-      finally {
-        // Code that will always be executed
-        console.log("This will be executed no matter what.");
-      }
-
-      if(match===false){
-        const confirm_save_verse = window.confirm(`Would you like to save ${reference} to your flashcards list?`) 
-        if(confirm_save_verse){
-          mycards.push({'question':verse_text,'answer':reference,'box':1})
-          window.alert(`${reference} has been added to your flashcards list.`)
-        }
-       
-      }
-      else{
-        window.alert(`${reference} has already been added to your flashcards list.`)        
-      }
-
-      // localStorage.clear() clears everything stored in the localStorage for the current domain.
-      localStorage.clear()
-      localStorage.setItem('bible-flash-cards',JSON.stringify(mycards))//convert mycards  back into a string
-
-  
-    // end saveToLocalStorage()
-    }
-
-    const button_find_verse = document.querySelector('#button-find-verse')
-    const button_save_verse = document.querySelector('#button-save-verse')
-    const button_remove_verses = document.querySelector('#button-remove-verses')
-    button_find_verse.setAttribute('data-button-text', button_find_verse.textContent)
-    button_save_verse.setAttribute('data-button-text', button_save_verse.textContent)
-    button_remove_verses.setAttribute('data-button-text', button_remove_verses.textContent)
-    
-
-  </script>
-
 {% endblock script %}

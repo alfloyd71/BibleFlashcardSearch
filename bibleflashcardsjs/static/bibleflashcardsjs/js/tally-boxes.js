@@ -4,33 +4,13 @@ const thirdBox = document.getElementById("third-box")
 const fourthBox = document.getElementById("fourth-box")
 const fifthBox = document.getElementById("fifth-box")
 
-const tallyBoxes=(mycards)=>{
-  let tallyBox1=0
-  let tallyBox2=0
-  let tallyBox3=0
-  let tallyBox4=0
-  let tallyBox5=0
+function tallyBoxes(mycards){
   for(let i=0;i<mycards.length;i++){
-    for(let j=0;j<=5;j++){
-      if(mycards[i]['box']==j){
-        switch (mycards[i]['box']){
-          case 1: 
-            tallyBox1+=1
-            break
-          case 2: 
-            tallyBox2+=1 
-            break
-          case 3: 
-            tallyBox3+=1
-            break
-          case 4: 
-            tallyBox4+=1 
-            break
-          case 5: 
-            tallyBox5+=1
-            break
-        }
-      }
+    for(let j=0;j<=4;j++){
+      if(mycards[i]['box']===j+1){
+       if(flashCardGlobalsInstance) flashCardGlobalsInstance.tallyBoxArry[j]+=1 
+       else if(editVersesGlobalsInstance) editVersesGlobalsInstance.tallyBoxArry[j]+=1
+      } 
     }
   }
 
@@ -48,21 +28,26 @@ const tallyBoxes=(mycards)=>{
 
   spanFirstBox.style.color="black"
   spanFirstBox.style.backgroundColor="yellow"
-  spanFirstBox.innerHTML=` ${tallyBox1})`
+  if(flashCardGlobalsInstance) spanFirstBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[0]})`
+  else if(editVersesGlobalsInstance) spanFirstBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[0]})`
 
   spanSecondBox.style.color="black"
   spanSecondBox.style.backgroundColor="yellow"
-  spanSecondBox.innerHTML=` ${tallyBox2})`
+  if(flashCardGlobalsInstance) spanSecondBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[1]})`
+  else if(editVersesGlobalsInstance) spanSecondBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[1]})`
 
   spanThirdBox.style.color="black"
   spanThirdBox.style.backgroundColor="yellow"
-  spanThirdBox.innerHTML=` ${tallyBox3})`
+  if(flashCardGlobalsInstance) spanThirdBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[2]})`
+  else if(editVersesGlobalsInstance) spanThirdBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[2]})`
 
   spanFourthBox.style.color="black"
   spanFourthBox.style.backgroundColor="yellow"
-  spanFourthBox.innerHTML=` ${tallyBox4})`
+  if(flashCardGlobalsInstance) spanFourthBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[3]})`
+  else if(editVersesGlobalsInstance) spanFourthBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[3]})`
 
   spanFifthBox.style.color="black"
   spanFifthBox.style.backgroundColor="yellow"
-  spanFifthBox.innerHTML=` ${tallyBox5})`
+  if(flashCardGlobalsInstance) spanFifthBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[4]})`
+  else if(editVersesGlobalsInstance) spanFifthBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[4]})`
  }

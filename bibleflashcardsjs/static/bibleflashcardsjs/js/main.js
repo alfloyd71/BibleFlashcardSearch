@@ -2,10 +2,9 @@ let flashCardGlobalsInstance;
 
 function showRandomVerse(box){
  flashCardGlobalsInstance.boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(box))} Box</h3>`
+
  flashCardGlobalsInstance.cardQuestion.innerHTML = flashCardGlobalsInstance.randomVerses[flashCardGlobalsInstance.randomVerseIndex]['question']
- console.log(flashCardGlobalsInstance.cardQuestion.innerHTML)
  flashCardGlobalsInstance.cardAnswer.innerHTML = flashCardGlobalsInstance.randomVerses[flashCardGlobalsInstance.randomVerseIndex]['answer']
- console.log(flashCardGlobalsInstance.cardAnswer.innerHTML)
  flashCardGlobalsInstance.hyperlinkCheck.href=`?box=${flashCardGlobalsInstance.randomVerses[flashCardGlobalsInstance.randomVerseIndex]['box']}&check=true`
  flashCardGlobalsInstance.hyperlinkX.href=`?box=${flashCardGlobalsInstance.randomVerses[flashCardGlobalsInstance.randomVerseIndex]['box']}&x=true`
 }
@@ -22,18 +21,25 @@ function attachEventListeners(){
         updated = true; // Mark as updated
       }
       else{
-        window.location.href = `?box=${flashCardGlobalsInstance.parametersBox}`;
+        console.log(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox])
+        if(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox]>=1){
+          window.location.href = `?box=${flashCardGlobalsInstance.parametersBox}`;
+        }
       }
    
       break // Exit the loop after updating one card
     }
    }
-   
-    if (updated) {
-    // Redirect only if a card was updated
-    // Bug Fixed - The page was redirecting every time with no conditional flag set
+   console.log(updated)
+   updated=false
+   if (updated) {
+     // Redirect only if a card was updated
+     // Bug Fixed - The page was redirecting every time with no conditional flag set
+     console.log(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox])
+     if(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox-1]>=1){
        window.location.href = `?box=${flashCardGlobalsInstance.parametersBox}`;
-    }
+     }
+   }
   });
  
   flashCardGlobalsInstance.hyperlinkX.addEventListener("click",(event)=>{
@@ -45,10 +51,15 @@ function attachEventListeners(){
         break
       }
     }
+    console.log(updated)
+    updated=false
     if (updated) {
-     // Redirect only if a card was updated
-     // Bug Fixed - The page was redirecting every time with no conditional flag set
-      window.location.href = `?box=${box}`;
+      // Redirect only if a card was updated
+      // Bug Fixed - The page was redirecting every time with no conditional flag set
+      console.log(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox])
+      if(flashCardGlobalsInstance.tallyBoxArry[flashCardGlobalsInstance.parametersBox-1]>=1){
+        window.location.href = `?box=${flashCardGlobalsInstance.parametersBox}`;
+      }
     }
   });
   
@@ -149,13 +160,11 @@ function main(){
       
   // Get the search parameters from the URL
   const urlParameters = new URLSearchParams(window.location.search);
-  console.log(urlParameters)
 
   // Get the value of a parameter
   const primary_key = urlParameters.get('pk');
   // Get box number as an integer
   flashCardGlobalsInstance.parametersBox = urlParameters.get('box')
-  console.log(flashCardGlobalsInstance.parametersBox)
   const delete_verse = urlParameters.get('delete')
   const check = urlParameters.get('check')
   const x = urlParameters.get('x')
@@ -177,7 +186,6 @@ function main(){
 
   if(flashCardGlobalsInstance.parametersBox && !delete_verse){
     flashCardGlobalsInstance.randomVerses = []
-    console.log(flashCardGlobalsInstance.mycards.length)
     
     for(i=0;i<flashCardGlobalsInstance.mycards.length;i++){
       if(flashCardGlobalsInstance.mycards[i]['box']===parseInt(flashCardGlobalsInstance.parametersBox)){
@@ -186,14 +194,15 @@ function main(){
     }
 
     flashCardGlobalsInstance.randomVerseIndex=Math.floor(Math.random()*flashCardGlobalsInstance.randomVerses.length)
-    
-    flashCardGlobalsInstance.indexMain.style.display="none"
-    if(flashCardGlobalsInstance.randomVerses.length>=1){
+    flashCardGlobalsInstance.showCardContainer.style.display="none"
+    if(flashCardGlobalsInstance.randomVerses.length>0){
       flashCardGlobalsInstance.boxesMain.style.display="block"
+      flashCardGlobalsInstance.showCardContainer.style.display="block"
       showRandomVerse(flashCardGlobalsInstance.parametersBox)
     }
     else{
-      flashCardGlobalsInstance.boxesMain.style.display="none"
+      flashCardGlobalsInstance.boxesMain.style.display="block"
+      flashCardGlobalsInstance.boxnum.innerHTML+=`<h3>${pluralize('st', parseInt(flashCardGlobalsInstance.parametersBox))} Box</h3>`
     }
       
     // display:block is the default for the <div> element
