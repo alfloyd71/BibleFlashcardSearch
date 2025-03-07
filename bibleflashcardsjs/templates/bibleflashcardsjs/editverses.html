@@ -13,9 +13,16 @@
 
 {% block content %}
 <header>
- <nav>
-   <h1 class="app-title">Bible Flashcard Search (BFS)</h1>
- </nav>
+  <nav>
+   <div class="flex-col">
+    <div class="app-title">Bible Flashcard</div>
+      <div>
+        <div class="flex-row app-title">
+          Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
+        </div>
+      </div>
+    </div>
+  </nav> 
 </header>
 
 <main>
@@ -30,7 +37,7 @@
  <section class="hero">
    <h2>Verse Search</h2>
    <p>Find any verse by reference (e.g., John 3:16).</p>
-   <form id ="form-flashcards" method = "post" id="bibleFlashCards">
+   <form id ="form-flashcards" method = "post" id="form-bible-flashcards">
     {% csrf_token %}
     <!--  <fieldset class="border border-secondary p-2">   -->
      <legend class="w-auto">Create New Card</legend>
