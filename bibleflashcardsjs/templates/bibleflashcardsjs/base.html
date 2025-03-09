@@ -27,25 +27,6 @@
     <!-- scripts -->
     <script src="../../static/bibleflashcardsjs/js/flashcard-globals.js"></script>
     <script src="/static/bibleflashcardsjs/js/pluralize.js"></script>
-
-    <script nonce="{{ request.csp_nonce }}">
-     if ('serviceWorker' in navigator) {
-       navigator.serviceWorker.getRegistrations().then((registrations) => {
-         for (let registration of registrations) {
-           registration.unregister();
-           console.log('Service worker unregistered.');
-         }
-       });
-
-       navigator.serviceWorker.register('/service-worker.js')
-         .then((registration) => {
-           console.log('Service Worker registered with scope:', registration.scope);
-         })
-         .catch((error) => {
-           console.error('Service Worker registration failed:', error);
-         });
-     }
-   </script> 
     
     {% block head %}
     {% endblock head %}
