@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from bibleflashcardsjs.forms import BibleVerseForm
+from biblefs.forms import BibleVerseForm
 from django.http import HttpResponseRedirect
 import pythonbible as bible
 from pythonbible.errors import InvalidChapterError
-from bibleflashcardsjs.biblebooks import getBookNames
+from biblefs.biblebooks import getBookNames
 import string, re
 from .names_abbreviated import getBookNamesAbbreviated
 
@@ -19,9 +19,6 @@ def parseVerse(bibleverse):
     my_string = bibleverse
     search_string = ":"
     if my_string.find(search_string) != -1:
-
-   
-        #bibleverse = "matthew 24:24"
         versereference = bibleverse
         versereference=string.capwords(versereference)
 
@@ -67,7 +64,7 @@ def parseVerse(bibleverse):
         book="Revelation"
         chapter="21"
         verse="4"
-        versereference="Revelation 21:4"
+        versereference="John 3:16"
     return versereference,book, int(chapter), int(verse)
 
 def parseNumVerse(chapterandverse):
@@ -135,7 +132,7 @@ def getVerse(verse):
     if(nobook_name):
      chapter=21
      verse=4
-     bible_verse=string.capwords('Revelation 21:4')
+     bible_verse=string.capwords('John 3:16')
     else:
      chapter=int(chapter)
      verse=int(verse)
@@ -158,7 +155,7 @@ def getVerse(verse):
 
 # edit kjv Bible verses
 def editVerses(request):
-    verse="Revelation 21:4"
+    verse="John 3:16"
     verse_text=""
     reference=""
     versereference=""
@@ -203,11 +200,12 @@ def editVerses(request):
     verse_text, versereference=getVerse(verse)
     form=BibleVerseForm()
     context={'title':'Bible Flashcards App the King James Version(KJV)','form':form, 
-             'versereference':versereference, 'verse_text':verse_text, 'reference':reference              }
-    return render(request, 'bibleflashcardsjs/editverses.html', context)
+             'versereference':versereference, 'verse_text':verse_text, 'reference':reference,
+            }
+    return render(request, 'biblefs/editverses.html', context)
 
 def fetchCard(request):
-    return render(request, "bibleflashcardsjs/card.html")
+    return render(request, "biblefs/card.html")
 
 def loadCard():
     card_list = [{'question':'In the end of the sabbath, as it began to dawn toward the first day of the week, came Mary Magdalene and the other Mary to see the sepulchre.',
@@ -226,4 +224,4 @@ def showCards(request):
     context={'card_list':card_list,}
         
 
-    return render(request, "bibleflashcardsjs/index.html", context)
+    return render(request, "biblefs/index.html", context)
