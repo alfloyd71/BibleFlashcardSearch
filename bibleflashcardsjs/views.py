@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from biblefs.forms import BibleVerseForm
+from bibleflashcardsjs.forms import BibleVerseForm
 from django.http import HttpResponseRedirect
 import pythonbible as bible
 from pythonbible.errors import InvalidChapterError
-from biblefs.biblebooks import getBookNames
+from bibleflashcardsjs.biblebooks import getBookNames
 import string, re
 from .names_abbreviated import getBookNamesAbbreviated
 
@@ -202,10 +202,10 @@ def editVerses(request):
     context={'title':'Bible Flashcards App the King James Version(KJV)','form':form, 
              'versereference':versereference, 'verse_text':verse_text, 'reference':reference,
             }
-    return render(request, 'biblefs/editverses.html', context)
+    return render(request, 'bibleflashcardsjs/editverses.html', context)
 
 def fetchCard(request):
-    return render(request, "biblefs/card.html")
+    return render(request, "bibleflashcardsjs/card.html")
 
 def loadCard():
     card_list = [{'question':'In the end of the sabbath, as it began to dawn toward the first day of the week, came Mary Magdalene and the other Mary to see the sepulchre.',
@@ -224,4 +224,4 @@ def showCards(request):
     context={'card_list':card_list,}
         
 
-    return render(request, "biblefs/index.html", context)
+    return render(request, "bibleflashcardsjs/index.html", context)
