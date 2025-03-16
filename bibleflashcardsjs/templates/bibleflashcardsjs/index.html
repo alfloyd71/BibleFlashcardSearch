@@ -11,57 +11,59 @@
 {% endblock head %}
 
 {% block content %}
-  <header>
-   <nav>
-    <div class="flex-col">
-     <div class="app-title">Bible Flashcard</div>
-       <div>
-         <div class="flex-row app-title">
-           Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
-         </div>
-       </div>
+<header>
+  <nav>
+   <!--<div class="app-title">Bible Flashcard Search</div>-->
+   <div class="flex-col">
+     <div class="app-title">
+       Bible Flashcard
      </div>
-   </nav> 
-  </header>
-  <main>
-   <div id="index-main">
-     <section class="hero">
-       <h2>All Cards</h2>
+     <div class="flex-row app-title">
+       Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
+     </div>
+   </div>
+  </nav> 
+</header>
+ 
+<main>
+  <div id="index-main">
+    <section class="hero">
+      <h2>All Cards</h2>
+      <div>
+        <a href="{% url 'editVerses' %}" role="button">
+         <button class="add-flashcard-btn">Create New Card</button>
+        </a>
+      </div>
+     <span id="insert-html-here"></span>
+    </section>  
+  </div>
+
+  <!-- html for box page goes here -->
+  <div id="boxes-main">
+    <section class="hero">
+      <div class="flex-row">
+       <div>
+         <a href="{% url 'showCards' %}" role="button">
+          <button class="add-flashcard-btn">All Cards</button>
+         </a> 
+       </div>
        <div>
          <a href="{% url 'editVerses' %}" role="button">
-          <button class="add-flashcard-btn">Create New Card</button>
-         </a>
-       </div>
-      <span id="insert-html-here"></span>
-     </section>  
-   </div>
-
-   <!-- html for box page goes here -->
-   <div id="boxes-main">
-     <section class="hero">
-       <div class="flex-row">
-        <div>
-          <a href="{% url 'showCards' %}" role="button">
-           <button class="add-flashcard-btn">All Cards</button>
-          </a> 
-        </div>
-        <div>
-          <a href="{% url 'editVerses' %}" role="button">
-            <button class="add-flashcard-btn">Create New Card</button>
-           </a>
-        </div>   
-       </div>
-       <h3 id="boxnum"></h3>
-       <div id="show-card-container"> 
-         {% include 'bibleflashcardsjs/card.html' %}
-       </div> 
-     </section>
-   </div>
-   {% include 'bibleflashcardsjs/box-navigation.html' %}
- </main>
- <footer>
-   &copy;2025 freesmartphoneapps.com
- </footer>
+           <button class="add-flashcard-btn">Create New Card</button>
+          </a>
+       </div>   
+      </div>
+      <h3 id="boxnum"></h3>
+      <div id="show-card-container"> 
+        {% include 'bibleflashcardsjs/card.html' %}
+      </div> 
+    </section>
+  </div>
+  {% include 'bibleflashcardsjs/box-navigation.html' %}
+</main>
+<footer>
+  &copy;2025 YourWebsite.com
+</footer>
 {% endblock content %}
 
 {% block script %}
