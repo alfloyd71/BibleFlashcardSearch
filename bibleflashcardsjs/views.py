@@ -2,10 +2,43 @@ from django.shortcuts import render
 from bibleflashcardsjs.forms import BibleVerseForm
 from django.http import HttpResponseRedirect
 import pythonbible as bible
-from pythonbible.errors import InvalidChapterError
+from pythonbible.errors import InvalidVerseError, InvalidChapterError 
 from bibleflashcardsjs.biblebooks import getBookNames
 import string, re
 from .names_abbreviated import getBookNamesAbbreviated
+
+def is_valid_reference(verse_reference='Genesis 50:2',book='Genesis', chapter='51', verse='2'):
+    try:
+        reference = f"{book} {chapter}:{verse}"
+        reference=verse_reference
+        refs = bible.get_references(reference)
+        return len(refs) > 0
+    except Exception:
+        return False
+
+
+"""def is_valid_reference(book='Genesis', chapter='50', verse='2'):
+    ref_str = "Genesis 1:1 - 2:3"
+    references = bible.get_references(ref_str)
+    print('first reference', references[0])
+
+    for ref in references:
+        start_book = ref.book
+        end_book = ref.end_book if ref.end_book is not None else ref.book
+        print(f"Start Book: {start_book}, End Book: {end_book}")
+
+    return False
+
+    print(book,chapter,verse)
+    try:
+        # Combine reference and attempt to convert to verse IDs
+        reference = f"{book} {chapter}:{verse}"
+        verse_ids = bible.convert_reference_to_verse_ids(reference)
+        return len(verse_ids) > 0
+    except (InvalidVerseError, InvalidChapterError):
+        print('exception has been caught')
+        return False"""
+    
 
 def parseVerse(bibleverse):
     """if my_string.find(search_string) != -1:
@@ -68,93 +101,92 @@ def parseVerse(bibleverse):
     return versereference,book, int(chapter), int(verse)
 
 def parseNumVerse(chapterandverse):
-        i=0
-        match=""
-        while(match!=":"):
-            match=chapterandverse[i]
-            i+=1
+    i=0
+    match=""
+    while(match!=":"):
+        match=chapterandverse[i]
+        i+=1
 
-        print(match)
-        print(i)   
+    print(match)
+    print(i)   
 
-        verse=chapterandverse[i:]
-        verse=verse.strip()
-        print('verse is after strip: ',verse)
+    verse=chapterandverse[i:]
+    verse=verse.strip()
+    print('verse is after strip: ',verse)
 
-        chapter=chapterandverse[0:i-1]
-        chapter=chapter.strip()
-        print('chapter is ',chapter)
-        return chapter, verse
-
-
+    chapter=chapterandverse[0:i-1]
+    chapter=chapter.strip()
+    print('chapter is ',chapter)
+    return chapter, verse
 
 def getVerse(verse):
-  #verse="2 peter 1:7"
-  bible_verse=""
-  versewithnum="2 timothy 1:5"
-  bookname=""
-  chapter=""
-  versereference=""
-  startswithnum=False
-  v=verse.split(' ')
-  print(v)
-  try:
-    num=int(v[0])
-    print('starts with the number ',num)
-    bookname=v[0]+" "+v[1]
-    chapterandverse=v[2]
-    chapter,verse=parseNumVerse(chapterandverse)
-    versewithnum=str(num)+" "+v[1]+" "+v[2]
-    print(versewithnum)
-    startswithnum=True
-  except (ValueError, IndexError):
-    print("unable to convert to an integer")
+    #verse="2 peter 1:7"
+    bible_verse=""
+    versewithnum="2 timothy 1:5"
+    bookname=""
+    chapter=""
+    versereference=""
+    startswithnum=False
+    v=verse.split(' ')
+    print(v)
     try:
-        versereference,bookname, chapter, verse = parseVerse(verse)
+      num=int(v[0])
+      print('starts with the number ',num)
+      bookname=v[0]+" "+v[1]
+      chapterandverse=v[2]
+      chapter,verse=parseNumVerse(chapterandverse)
+      versewithnum=str(num)+" "+v[1]+" "+v[2]
+      print(versewithnum)
+      startswithnum=True
+    except (ValueError, IndexError):
+      print("unable to convert to an integer")
+      try:
+          versereference,bookname, chapter, verse = parseVerse(verse)
+      except:
+          pass
+       
+    if not startswithnum:
+      bookname=bookname.strip()
+
+    bookname=getBookNamesAbbreviated(bookname=bookname)
+    bookname=bookname.upper()
+    print('bookname testing line 50',bookname)
+    bible_verse=str(bookname)+" "+str(chapter)+":"+str(verse)
+    bible_verse=string.capwords(bible_verse)
+
+    book, nobook_name = getBookNames(bookname=bookname)
+
+    print('let us do a book check ',book)
+    verse_text=""
+
+    try:
+      if(nobook_name):
+       chapter=21
+       verse=4
+       bible_verse=string.capwords('John 3:16')
+      else:
+       chapter=int(chapter)
+       verse=int(verse)
+      
+      reference = bible.NormalizedReference(book, chapter, verse, chapter, verse)#Genesis 1:1-4
+      verse_ids = bible.convert_reference_to_verse_ids(reference)
+
+      print('reference ',reference)
+      print('verse_ids ',verse_ids[0])
+
+      verse_text = bible.get_verse_text(verse_ids[0], version=bible.Version.KING_JAMES)
+
+      print(verse_text)
+
     except:
-        pass
-     
-  if not startswithnum:
-    bookname=bookname.strip()
-  
-  bookname=getBookNamesAbbreviated(bookname=bookname)
-  bookname=bookname.upper()
-  print('bookname testing line 50',bookname)
-  bible_verse=str(bookname)+" "+str(chapter)+":"+str(verse)
-  bible_verse=string.capwords(bible_verse)
-  
-  book, nobook_name = getBookNames(bookname=bookname)
+      print('This is an Invalid Chapter')
 
-  print('let us do a book check ',book)
-  verse_text=""
-
-  try:
-    if(nobook_name):
-     chapter=21
-     verse=4
-     bible_verse=string.capwords('John 3:16')
-    else:
-     chapter=int(chapter)
-     verse=int(verse)
-    
-    reference = bible.NormalizedReference(book, chapter, verse, chapter, verse)#Genesis 1:1-4
-    verse_ids = bible.convert_reference_to_verse_ids(reference)
-
-    print('reference ',reference)
-    print('verse_ids ',verse_ids[0])
-
-    verse_text = bible.get_verse_text(verse_ids[0], version=bible.Version.KING_JAMES)
-
-    print(verse_text)
-
-  except:
-    print('This is an Invalid Chapter')
-
-  formattedverse=verse_text 
-  return formattedverse,bible_verse
+    formattedverse=verse_text 
+    return formattedverse,bible_verse
 
 # edit kjv Bible verses
 def editVerses(request):
+    is_valid_ref=True
     verse="John 3:16"
     verse_text=""
     reference=""
@@ -198,6 +230,15 @@ def editVerses(request):
             verse=request.GET['verse']
     print('verse is ',verse)
     verse_text, versereference=getVerse(verse)
+    print(versereference)
+    print(verse_text)
+    if(is_valid_reference(versereference,'Genesis','50','2')==True):
+        is_valid_ref=True
+    else:
+        is_valid_ref=False
+        versereference="John 3:16"
+        verse_text="For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+    
     form=BibleVerseForm()
     context={'title':'Bible Flashcards App the King James Version(KJV)','form':form, 
              'versereference':versereference, 'verse_text':verse_text, 'reference':reference,
