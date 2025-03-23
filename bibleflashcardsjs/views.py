@@ -16,30 +16,6 @@ def is_valid_reference(verse_reference='Genesis 50:2',book='Genesis', chapter='5
     except Exception:
         return False
 
-
-"""def is_valid_reference(book='Genesis', chapter='50', verse='2'):
-    ref_str = "Genesis 1:1 - 2:3"
-    references = bible.get_references(ref_str)
-    print('first reference', references[0])
-
-    for ref in references:
-        start_book = ref.book
-        end_book = ref.end_book if ref.end_book is not None else ref.book
-        print(f"Start Book: {start_book}, End Book: {end_book}")
-
-    return False
-
-    print(book,chapter,verse)
-    try:
-        # Combine reference and attempt to convert to verse IDs
-        reference = f"{book} {chapter}:{verse}"
-        verse_ids = bible.convert_reference_to_verse_ids(reference)
-        return len(verse_ids) > 0
-    except (InvalidVerseError, InvalidChapterError):
-        print('exception has been caught')
-        return False"""
-    
-
 def parseVerse(bibleverse):
     """if my_string.find(search_string) != -1:
         print(f"{search_string} found in the string.")
