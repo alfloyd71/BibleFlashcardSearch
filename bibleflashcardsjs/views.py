@@ -3,7 +3,7 @@ from bibleflashcardsjs.forms import BibleVerseForm
 from django.http import HttpResponseRedirect
 import pythonbible as bible
 from pythonbible.errors import InvalidVerseError, InvalidChapterError 
-from bibleflashcardsjs.biblebooks import getBookNames
+from bibleflashcardsjs.bible_books import getBookNames
 import string, re
 from .names_abbreviated import getBookNamesAbbreviated
 
@@ -16,7 +16,7 @@ def is_valid_reference(verse_reference='Genesis 50:2',book='Genesis', chapter='5
     except Exception:
         return False
 
-def parseVerse(bibleverse):
+def parse_verse(bibleverse):
     """if my_string.find(search_string) != -1:
         print(f"{search_string} found in the string.")
     else:
@@ -76,7 +76,7 @@ def parseVerse(bibleverse):
         versereference="John 3:16"
     return versereference,book, int(chapter), int(verse)
 
-def parseNumVerse(chapterandverse):
+def parse_num_verse(chapterandverse):
     i=0
     match=""
     while(match!=":"):
@@ -95,7 +95,7 @@ def parseNumVerse(chapterandverse):
     print('chapter is ',chapter)
     return chapter, verse
 
-def getVerse(verse):
+def get_verse(verse):
     #verse="2 peter 1:7"
     bible_verse=""
     versewithnum="2 timothy 1:5"
@@ -110,14 +110,14 @@ def getVerse(verse):
       print('starts with the number ',num)
       bookname=v[0]+" "+v[1]
       chapterandverse=v[2]
-      chapter,verse=parseNumVerse(chapterandverse)
+      chapter,verse=parse_num_verse(chapterandverse)
       versewithnum=str(num)+" "+v[1]+" "+v[2]
       print(versewithnum)
       startswithnum=True
     except (ValueError, IndexError):
       print("unable to convert to an integer")
       try:
-          versereference,bookname, chapter, verse = parseVerse(verse)
+          versereference,bookname, chapter, verse = parse_verse(verse)
       except:
           pass
        
@@ -161,7 +161,7 @@ def getVerse(verse):
     return formattedverse,bible_verse
 
 # edit kjv Bible verses
-def editVerses(request):
+def edit_verses(request):
     is_valid_ref=True
     verse="John 3:16"
     verse_text=""
@@ -205,7 +205,7 @@ def editVerses(request):
         if 'verse' in request.GET:
             verse=request.GET['verse']
     print('verse is ',verse)
-    verse_text, versereference=getVerse(verse)
+    verse_text, versereference=get_verse(verse)
     print(versereference)
     print(verse_text)
     if(is_valid_reference(versereference,'Genesis','50','2')==True):
@@ -221,10 +221,10 @@ def editVerses(request):
             }
     return render(request, 'bibleflashcardsjs/editverses.html', context)
 
-def fetchCard(request):
+def fetch_card(request):
     return render(request, "bibleflashcardsjs/card.html")
 
-def loadCard():
+def load_card():
     card_list = [{'question':'In the end of the sabbath, as it began to dawn toward the first day of the week, came Mary Magdalene and the other Mary to see the sepulchre.',
                 'answer':'Matthew 28:1', 'box':1},
                 {'question':'But, beloved, be not ignorant of this one thing, that one day is with the Lord as a thousand years, and a thousand years as one day.',
@@ -235,8 +235,8 @@ def loadCard():
     
     return card_list
 
-def showCards(request):
-    card_list=loadCard()
+def show_cards(request):
+    card_list=load_card()
     print(card_list[0]['question'],card_list[0]['answer'])
     context={'card_list':card_list,}
         

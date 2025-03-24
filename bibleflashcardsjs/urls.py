@@ -1,8 +1,8 @@
 from django.urls import path
-from bibleflashcardsjs.views import (editVerses, showCards, fetchCard,)
+from bibleflashcardsjs.views import (edit_verses, show_cards, fetch_card,)
 
 urlpatterns=[
-    path('', showCards, name='showCards'),
-    path('card/', fetchCard),
-    path('editverses/', editVerses,name='editVerses'),
-    ]
+    path('', show_cards, name='show_cards'),
+    path('card/', fetch_card),
+    path('edit-verses/', edit_verses,name='edit_verses'),
+]
