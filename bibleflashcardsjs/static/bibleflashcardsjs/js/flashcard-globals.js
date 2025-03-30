@@ -16,6 +16,9 @@ class FlashCardGlobals{
     this.hyperlinkX = document.querySelector("#hyperlink-x")
     this.randomVerseIndex;
     this.randomVerses;
+    this.themeUsed = 'default';
+    this.themeToggle = false;
+    this.pageReloaded=false;
     
     /* tally box random verses*/
     this.tallyBoxArry = [0,0,0,0,0];
@@ -30,6 +33,9 @@ class EditVersesGlobals{
    this.myArrayMatchValue;
    this.strmyFlashCards;
    this.showCardContainer;
+   this.themeUsed = 'default';
+   this.themeToggle = false;
+   this.pageReloaded=false;
 
    /* tally box random verses*/
    this.tallyBoxArry = [0,0,0,0,0];

@@ -11,59 +11,63 @@
 {% endblock head %}
 
 {% block content %}
-<header>
+<header class="no-select">
   <nav>
-   <!--<div class="app-title">Bible Flashcard Search</div>-->
-   <div class="flex-col">
+   <div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div>
+   <div id="default-title" class="flex-col">
      <div class="app-title">
        Bible Flashcard
      </div>
-     <div class="flex-row app-title">
+     <div class="flex-row-logo app-title">
        Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
      </div>
    </div>
   </nav> 
 </header>
- 
-<main>
-  <div id="index-main">
-    <section class="hero">
-      <h2>All Cards</h2>
-      <div>
-        <a href="{% url 'edit_verses' %}" role="button">
-         <button class="add-flashcard-btn">Create Card</button>
-        </a>
-      </div>
-     <span id="insert-html-here"></span>
-    </section>  
-  </div>
-
-  <!-- html for box page goes here -->
-  <div id="boxes-main">
-    <section class="hero">
-      <div class="flex-row">
-       <div>
-         <a href="{% url 'show_cards' %}" role="button">
-          <button class="add-flashcard-btn">All Cards</button>
-         </a> 
+  <main class="no-select">
+   <div id="index-main">
+     <section class="hero">
+       <h2>All Cards</h2>
+       <div class="flex-row">
+         <div>
+           <a href="{% url 'edit_verses' %}" role="button">
+             <button class="add-flashcard-btn">Create Card</button>
+           </a>
+         </div>
+         <div>
+           <button id="change-theme" class="hidden">Theme</button>
+         </div>
        </div>
-       <div>
-         <a href="{% url 'edit_verses' %}" role="button">
-           <button class="add-flashcard-btn">Create Card</button>
-          </a>
-       </div>   
-      </div>
-      <h3 id="boxnum"></h3>
-      <div id="show-card-container"> 
-        {% include 'bibleflashcardsjs/card.html' %}
-      </div> 
-    </section>
-  </div>
-  {% include 'bibleflashcardsjs/box-navigation.html' %}
-</main>
-<footer>
-  &copy;2025 YourWebsite.com
-</footer>
+       <span id="insert-html-here"></span>
+     </section>  
+   </div>
+
+   <!-- html for box page goes here -->
+   <div id="boxes-main">
+     <section class="hero">
+       <div class="flex-row">
+        <div>
+          <a href="{% url 'show_cards' %}" role="button">
+           <button class="add-flashcard-btn">All Cards</button>
+          </a> 
+        </div>
+        <div>
+          <a href="{% url 'edit_verses' %}" role="button">
+            <button class="add-flashcard-btn">Create Card</button>
+           </a>
+        </div>   
+       </div>
+       <h3 id="boxnum"></h3>
+       <div id="show-card-container"> 
+         {% include 'bibleflashcardsjs/card.html' %}
+       </div> 
+     </section>
+   </div>
+   {% include 'bibleflashcardsjs/box-navigation.html' %}
+ </main>
+ <footer>
+   &copy;2025 freesmartphoneapps.com
+ </footer>
 {% endblock content %}
 
 {% block script %}

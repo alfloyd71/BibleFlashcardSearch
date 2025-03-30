@@ -12,61 +12,68 @@
 {% endblock head %}
 
 {% block content %}
-<header>
-  <nav>
-    <!--<div class="app-title">Bible Flashcard Search</div>-->
-    <div class="flex-col">
-      <div class="app-title">
-        Bible Flashcard
-      </div>
-      <div class="flex-row app-title">
-        Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
-      </div>
+<header class="no-select">
+ <nav>
+  <div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div>
+  <div id="default-title" class="flex-col">
+    <div class="app-title">
+      Bible Flashcard
     </div>
-  </nav> 
+    <div class="flex-row-logo app-title">
+      Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
+    </div>
+  </div>
+ </nav> 
 </header>
 
-<main>
+<main class="no-select">
   <section class="hero">
-    <div>
-      <a href="{% url 'show_cards' %}" role="button">
-       <button class="add-flashcard-btn">All Cards</button>
-      </a>
-    </div>
+   <h2>All Cards</h2>
+   <div class="flex-row">
+     <div>
+       <a href="{% url 'show_cards' %}" role="button">
+         <button class="add-flashcard-btn">All Cards</button>
+       </a>
+     </div>
+     <div>
+       <button id="change-theme" class="hidden">Theme</button>
+     </div>
+   </div>
    <span id="insert-html-here"></span>
-  </section>  
-  <section class="hero">
-    <h2>Verse Search</h2>
-    <p>Find any verse by reference (e.g., John 3:16).</p>
-    <form id ="form-flashcards" method = "post" id="form-bible-flashcards">
-     {% csrf_token %}
-     <!--  <fieldset class="border border-secondary p-2">   -->
-      <legend class="w-auto">Create New Card</legend>
-      <label for="text-verse">Verse Reference:</label>
-      {{ form.verse }}
-      <button id="button-find-verse">Search</button>
-    </form>
-  </section>
+ </section>  
+ <section class="hero">
+   <h2>Verse Search</h2>
+   <p>Find any verse by reference (e.g., John 3:16).</p>
+   <form method = "post" id="form-bible-flashcards">
+    {% csrf_token %}
+    <!--  <fieldset class="border border-secondary p-2">   -->
+     <legend class="w-auto">Create Card</legend>
+     <label for="text-verse">Verse Reference:</label>
+     {{ form.verse }}
+     <button id="button-find-verse">Search</button>
+   </form>
+ </section>
 
-  <section class="results">
-    <h2>Verse Results</h2>
-    <div class="verse-display flex-col">
-      <!-- The retrieved verse text will be displayed here -->
-      <div id="verse-display"><span id="verse-text">{{ verse_text }}</span></div>
-      <div id="versereference">{{ versereference }}</div>
-    </div>
-    <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
-    <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
-  </section>
-  <script src="../../static/bibleflashcardsjs/js/edit-verses.js"></script>
-  {% include 'bibleflashcardsjs/box-navigation.html' %}   
+ <section class="results">
+   <h2>Verse Results</h2>
+   <div class="verse-display flex-col">
+     <!-- The retrieved verse text will be displayed here -->
+     <div id="verse-display"><span id="verse-text">{{ verse_text }}</span></div>
+     <div id="versereference">{{ versereference }}</div>
+   </div>
+   <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
+   <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
+ </section>
+ 
+ {% include 'bibleflashcardsjs/box-navigation.html' %}   
  
 </main>
 
 <footer>
-  &copy;2025 YourWebsite.com
+  &copy;2025 freesmartphoneapps.com 
 </footer>
 {% endblock content %}
 
 {% block script %}
+  <script src="../../static/bibleflashcardsjs/js/edit-verses.js"></script>
 {% endblock script %}

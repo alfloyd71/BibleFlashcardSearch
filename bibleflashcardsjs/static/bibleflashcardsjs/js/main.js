@@ -9,7 +9,15 @@ function showRandomVerse(box){
  flashCardGlobalsInstance.hyperlinkX.href=`?box=${flashCardGlobalsInstance.randomVerses[flashCardGlobalsInstance.randomVerseIndex]['box']}&x=true`
 }
 
-function attachEventListeners(){
+function attachEventListeners(){ 
+  const changeThemeButton = document.querySelector('#change-theme')
+  changeThemeButton.addEventListener('pointerup',()=>{
+    console.log('theme changed')
+    setTheme();
+    flashCardGlobalsInstance.pageReloaded=false;
+    flashCardGlobalsInstance.themeToggle=!flashCardGlobalsInstance.themeToggle
+    localStorage.setItem('themeUsed', flashCardGlobalsInstance.themeUsed);
+  })
   flashCardGlobalsInstance.hyperlinkCheck.addEventListener(("click"),(element) =>{
     let updated = false; // Flag to track if a card was updated
    
@@ -214,9 +222,54 @@ function main(){
   attachEventListeners();
 // end main() 
 };
+
+function setTheme(){
+ const mainStreamTitle = document.querySelector('#main-stream-title')
+ const defaultTitle = document.querySelector('#default-title')
+ const styles1 = document.querySelector('#styles1')
+ const styles2 = document.querySelector('#styles2')
+
+ function setDefaultTheme(){
+   mainStreamTitle.style.display='none'
+   defaultTitle.style.display='block'
+   styles1.href = 'https://cdn.simplecss.org/simple.min.css'
+   styles2.href = '/static/biblefs/css/android-app-styles.css'
+ }
+
+ function setMainStreamTheme(){
+   mainStreamTitle.style.display='block'
+   defaultTitle.style.display='none'
+   styles1.href = '/static/biblefs/css/main-stream-styles.css'
+   styles2.href = '/static/biblefs/css/index-styles.css' 
+ }
+ if(flashCardGlobalsInstance.pageReloaded){
+   if(flashCardGlobalsInstance.themeUsed==='default') setDefaultTheme();
+   else if(flashCardGlobalsInstance.themeUsed==='mainstream') setMainStreamTheme();
+ }
+ else{
+   if(flashCardGlobalsInstance.themeUsed==='mainstream'){
+     setDefaultTheme();
+     flashCardGlobalsInstance.themeUsed='default'
+   } 
+   else if(flashCardGlobalsInstance.themeUsed==='default')
+    {
+      setMainStreamTheme(); 
+      flashCardGlobalsInstance.themeUsed='mainstream'
+    }  
+   
+ }
+
+// end setTheme()
+}
      
  document.addEventListener('DOMContentLoaded', () =>{
    flashCardGlobalsInstance = new FlashCardGlobals();
+   const storedTheme = localStorage.getItem('themeUsed') || flashCardGlobalsInstance.themeUsed;
+
+   flashCardGlobalsInstance.themeUsed = storedTheme ? storedTheme : flashCardGlobalsInstance.themeUsed;
+   flashCardGlobalsInstance.pageReloaded = true;
+   setTheme();
+   
    main();
      
    //end DOMContentLoaded event listener

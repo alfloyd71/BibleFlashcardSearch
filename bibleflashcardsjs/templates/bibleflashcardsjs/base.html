@@ -13,20 +13,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/static/bibleflashcardsjs/images/icons/pwa/favicon.ico">
     
-    <!--<link id ="manifest" rel="manifest" href="/static/biblefs/site.webmanifest">-->
+    <link id ="manifest" rel="manifest" href="/static/bibleflashcardsjs/site.webmanifest">
     
-    <!-- custom stylesheets to fit this website's theme  -->
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <link rel="stylesheet" href="/static/bibleflashcardsjs/css/android-app-styles.css">
+    <!-- Default Theme -->
+    <link id="styles1" rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link id="styles2" rel="stylesheet" href="/static/bibleflashcardsjs/css/android-app-styles.css">
     
     <!--
-    <link rel= "stylesheet" href="/static/biblefs/css/main-stream-styles.css">
-    <link rel="stylesheet" href="/static/biblefs/css/index-styles.css">
+    <link rel= "stylesheet" href="/static/bibleflashcardsjs/css/main-stream-styles.css">
+    <link rel="stylesheet" href="/static/bibleflashcardsjs/css/index-styles.css">
     -->
+    
 
     <!-- scripts -->
     <script src="../../static/bibleflashcardsjs/js/flashcard-globals.js"></script>
     <script src="/static/bibleflashcardsjs/js/pluralize.js"></script>
+
+    <script nonce="{{ request.csp_nonce }}">
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.getRegistrations().then((registrations) => {
+         for (let registration of registrations) {
+           registration.unregister();
+           console.log('Service worker unregistered.');
+         }
+       });
+
+       navigator.serviceWorker.register('/service-worker.js')
+         .then((registration) => {
+           console.log('Service Worker registered with scope:', registration.scope);
+         })
+         .catch((error) => {
+           console.error('Service Worker registration failed:', error);
+         });
+     }
+   </script> 
     
     {% block head %}
     {% endblock head %}

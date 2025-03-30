@@ -1,0 +1,16 @@
+{
+ "lang":"en-us",
+ "name":"Bible Flashcard Search",
+ "short_name":"Bible Flashcards",
+ "description":"Bible Flashcard Search is an open-source app that lets you search for verses in the KJV Bible and create flashcards using a systematic 'flashcard box' method for enhanced learning.",
+ "start_url":"/biblefs/",
+ "background_color":"#ffffff",
+ "theme_color":"#ffffff",
+ "orientation":"portrait",
+ "display":"standalone",
+ "icons":[
+     {"src":"/static/biblefs/images/icons/pwa/splashscreen.png", "sizes":"192x192", "type":"image/png", "purpose":"maskable"},
+     {"src":"/static/biblefs/images/icons/pwa/homescreen.png", "sizes":"409x409", "type":"image/png", "purpose":"maskable"},
+     {"src":"/static/biblefs/images/icons/pwa/android-chrome-512x512.png", "sizes":"512x512", "type":"image/png", "purpose":"any"}
+ ]
+}
