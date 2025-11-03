@@ -1,0 +1,27 @@
+{% block head %}
+ <!-- biblefs/card.html -->
+ <link rel="stylesheet" href="/static/biblefs/css/box-styles.css">
+
+{% endblock head %}
+
+<article id="box-article">
+  <h4 id="card-question"></h4>
+  <p id="card-answer-transparent"></p>
+  
+  <details id="details-reveal-answer">
+      <summary>Reveal Answer</summary>
+      <p id="card-answer">{{ card.answer }}</p>
+  </details>
+  
+  <div class="flex-row">
+    <div> 
+      <a id="hyperlink-check" href="/nowhere"><image src="/static/biblefs/images/icons/check.png" aria-label="check yes" id="button-check"></a>
+    </div>
+    <div>
+      <a id="hyperlink-x" href="" role="button"><image src="/static/biblefs/images/icons/x.png" aria-label="x no" id="button-x"></a>
+    </div>
+          
+    <hr>
+      
+</article>
+</div>

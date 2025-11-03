@@ -1,13 +1,7 @@
 let editVersesGlobalsInstance;
 let flashCardGlobalsInstance;
 function runEditVersesMain(){
-  const changeThemeButton = document.querySelector('#change-theme')
-   changeThemeButton.addEventListener('pointerup',()=>{
-     setTheme();
-     editVersesGlobalsInstance.pageReloaded=false;
-     editVersesGlobalsInstance.themeToggle=!editVersesGlobalsInstance.themeToggle
-     localStorage.setItem('themeUsed', editVersesGlobalsInstance.themeUsed);
-   })
+  
   
    function handleSave(event) {
     event.preventDefault();
@@ -97,16 +91,8 @@ try{
 function clearLocS(){
   const confirmRemoveAll=window.confirm("Would you like to remove all of the verses from your flashcards?")
   if(confirmRemoveAll){
-    let themeUsed = localStorage.getItem('themeUsed')
-    if (!themeUsed || themeUsed === "undefined" || themeUsed === "null") {
-     themeUsed = "default";
-   }
-    console.log("Before clearing:", themeUsed);
-
     localStorage.clear();
-    localStorage.setItem('themeUsed', themeUsed);  
     window.alert("All flashcards have been removed from your web browser")
-    console.log("After restoring:", themeUsed);
   }
 }
 
@@ -155,53 +141,13 @@ buttonSaveVerse.setAttribute('data-button-text', buttonSaveVerse.textContent)
 btnRemoveVerses.setAttribute('data-button-text', btnRemoveVerses.textContent)
 }
 
-function setTheme(){
-  const mainStreamTitle = document.querySelector('#main-stream-title')
-  const defaultTitle = document.querySelector('#default-title')
-  const styles1 = document.querySelector('#styles1')
-  const styles2 = document.querySelector('#styles2')
 
-  function setDefaultTheme(){
-    mainStreamTitle.style.display='none'
-    defaultTitle.style.display='block'
-    styles1.href = 'https://cdn.simplecss.org/simple.min.css'
-    styles2.href = '/static/biblefs/css/android-app-styles.css'
-  }
-
-  function setMainStreamTheme(){
-    mainStreamTitle.style.display='block'
-    defaultTitle.style.display='none'
-    styles1.href = '/static/biblefs/css/main-stream-styles.css'
-    styles2.href = '/static/biblefs/css/index-styles.css' 
-  }
-  if(editVersesGlobalsInstance.pageReloaded){
-    if(editVersesGlobalsInstance.themeUsed==='default') setDefaultTheme();
-    else if(editVersesGlobalsInstance.themeUsed==='mainstream') setMainStreamTheme();
-  }
-  else{
-    if(editVersesGlobalsInstance.themeUsed==='mainstream'){
-      setDefaultTheme();
-      editVersesGlobalsInstance.themeUsed='default'
-    } 
-    else if(editVersesGlobalsInstance.themeUsed==='default')
-     {
-       setMainStreamTheme(); 
-       editVersesGlobalsInstance.themeUsed='mainstream'
-     }  
-    
-  }
-
-// end setTheme()
-}
 
 document.addEventListener('DOMContentLoaded', () =>{
  flashCardGlobalsInstance = new FlashCardGlobals();
  editVersesGlobalsInstance = new EditVersesGlobals();
- const storedTheme = localStorage.getItem('themeUsed') || editVersesGlobalsInstance.themeUsed;
 
- editVersesGlobalsInstance.themeUsed = storedTheme ? storedTheme : editVersesGlobalsInstance.themeUsed;
  editVersesGlobalsInstance.pageReloaded = true;
- setTheme();
  runEditVersesMain();
  
 //end DOMContentLoaded event listener

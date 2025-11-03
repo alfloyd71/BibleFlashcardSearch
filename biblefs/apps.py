@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class BibleflashcardsjsConfig(AppConfig):
+class BiblefsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'bibleflashcardsjs'
+    name = 'biblefs'

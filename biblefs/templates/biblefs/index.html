@@ -1,4 +1,4 @@
-{% extends 'bibleflashcardsjs/base.html' %}
+{% extends 'biblefs/base.html' %}
 {% load humanize %}
 {% block title %}
   Bible Flashcard Search
@@ -15,11 +15,11 @@
   <nav>
    <div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div>
    <div id="default-title" class="flex-col">
-     <div class="app-title">
+     <!--<div class="app-title">
        Bible Flashcard
-     </div>
+     </div>-->
      <div class="flex-row-logo app-title">
-       Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/book-bible-solid.svg" alt="bfs logo">
+     <img class="custom-logo" src="/static/biblefs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
      </div>
    </div>
   </nav> 
@@ -30,13 +30,11 @@
        <h2>All Cards</h2>
        <div class="flex-row">
          <div>
-           <a href="{% url 'edit_verses' %}" role="button">
+           <a href="{% url 'edit_verses_main_stream' %}" role="button">
              <button class="add-flashcard-btn">Create Card</button>
            </a>
          </div>
-         <div>
-           <button id="change-theme" class="hidden">Theme</button>
-         </div>
+        
        </div>
        <span id="insert-html-here"></span>
      </section>  
@@ -47,29 +45,29 @@
      <section class="hero">
        <div class="flex-row">
         <div>
-          <a href="{% url 'show_cards' %}" role="button">
+          <a href="{% url 'show_cards_main_stream' %}" role="button">
            <button class="add-flashcard-btn">All Cards</button>
           </a> 
         </div>
         <div>
-          <a href="{% url 'edit_verses' %}" role="button">
+          <a href="{% url 'edit_verses_main_stream' %}" role="button">
             <button class="add-flashcard-btn">Create Card</button>
            </a>
         </div>   
        </div>
        <h3 id="boxnum"></h3>
        <div id="show-card-container"> 
-         {% include 'bibleflashcardsjs/card.html' %}
+         {% include 'biblefs/card.html' %}
        </div> 
      </section>
    </div>
-   {% include 'bibleflashcardsjs/box-navigation.html' %}
+   {% include 'biblefs/box-navigation.html' %}
  </main>
  <footer>
-   &copy;2025 freesmartphoneapps.com
+  &copy;2025 YourWebsite.com 
  </footer>
 {% endblock content %}
 
 {% block script %}
-  <script src="../../static/bibleflashcardsjs/js/main.js"></script>
+  <script src="../../static/biblefs/js/main.js"></script>
 {% endblock script %}

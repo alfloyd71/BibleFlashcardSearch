@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>
+    {% block title %}
+    {% endblock title %}
+    </title>
+    {% block description %}
+    {% endblock description %}
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/biblefs/images/icons/pwa/favicon.ico">
+    
+    <link id ="manifest" rel="manifest" href="/static/biblefs/site.webmanifest">
+    
+    <!-- Default Theme -->
+     <!--<link id="styles1" rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link id="styles2" rel="stylesheet" href="/static/biblefs/css/android-app-styles.css">    -->
+
+    
+    
+    <link rel= "stylesheet" href="/static/biblefs/css/main-stream-styles.css">
+    <link rel="stylesheet" href="/static/biblefs/css/index-styles.css">
+        
+
+    <!-- scripts -->
+    <script src="../../static/biblefs/js/flashcard-globals.js"></script>
+    <script src="/static/biblefs/js/pluralize.js"></script>
+
+    <script nonce="{{ request.csp_nonce }}">
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.getRegistrations().then((registrations) => {
+         for (let registration of registrations) {
+           registration.unregister();
+           console.log('Service worker unregistered.');
+         }
+       });
+
+       navigator.serviceWorker.register('/service-worker.js')
+         .then((registration) => {
+           console.log('Service Worker registered with scope:', registration.scope);
+         })
+         .catch((error) => {
+           console.error('Service Worker registration failed:', error);
+         });
+     }
+   </script> 
+    
+    {% block head %}
+    {% endblock head %}
+
+  </head>
+
+  <body>
+
+    {% block content %}     
+    {% endblock content %}
+
+    {% block footer %}
+    {% endblock footer %}
+      
+    {% block script %}
+    {% endblock script %}
+
+  </body>
+
+</html>

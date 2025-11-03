@@ -1,4 +1,4 @@
-{% extends 'bibleflashcardsjs/base.html' %}
+{% extends 'biblefs/base.html' %}
 
 {% block title %}
 {{verse_text}}
@@ -14,13 +14,14 @@
 {% block content %}
 <header class="no-select">
  <nav>
-  <div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div>
+  <!--<div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div> -->
   <div id="default-title" class="flex-col">
+    <!--
     <div class="app-title">
       Bible Flashcard
-    </div>
+    </div>-->
     <div class="flex-row-logo app-title">
-      Search <img class="custom-logo" src="/static/bibleflashcardsjs/images/icons/book-bible-solid.svg" alt="bfs logo">
+      <img class="custom-logo" src="/static/biblefs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
     </div>
   </div>
  </nav> 
@@ -28,16 +29,13 @@
 
 <main class="no-select">
   <section class="hero">
-   <h2>All Cards</h2>
    <div class="flex-row">
      <div>
-       <a href="{% url 'show_cards' %}" role="button">
+       <a href="{% url 'show_cards_main_stream' %}" role="button">
          <button class="add-flashcard-btn">All Cards</button>
        </a>
      </div>
-     <div>
-       <button id="change-theme" class="hidden">Theme</button>
-     </div>
+     
    </div>
    <span id="insert-html-here"></span>
  </section>  
@@ -65,15 +63,15 @@
    <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
  </section>
  
- {% include 'bibleflashcardsjs/box-navigation.html' %}   
+ {% include 'biblefs/box-navigation.html' %}   
  
 </main>
 
 <footer>
-  &copy;2025 freesmartphoneapps.com 
+  &copy;2025 YourWebsite.com 
 </footer>
 {% endblock content %}
 
 {% block script %}
-  <script src="../../static/bibleflashcardsjs/js/edit-verses.js"></script>
+  <script src="../../static/biblefs/js/edit-verses.js"></script>
 {% endblock script %}
