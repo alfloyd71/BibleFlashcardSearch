@@ -124,12 +124,23 @@ def get_verse(verse):
     if not startswithnum:
       bookname=bookname.strip()
 
-    bookname=getBookNamesAbbreviated(bookname=bookname)
-    bookname=bookname.upper()
-    print('bookname testing line 50',bookname)
-    bible_verse=str(bookname)+" "+str(chapter)+":"+str(verse)
-    bible_verse=string.capwords(bible_verse)
+    bookname_display = getBookNamesAbbreviated(bookname=bookname)
 
+    # Convert to canonical name for pythonbible
+    if bookname_display == "psalm":
+        bookname = "PSALMS"
+    else:
+        bookname = bookname_display.upper()
+
+        
+
+    print("Display name:", bookname_display)
+    print("Internal canonical name:", bookname)
+
+    # Build the reference shown to users (use singular "Psalm")
+    bible_verse = f"{string.capwords(bookname_display)} {chapter}:{verse}"
+
+    # Lookup canonical book object for pythonbible
     book, nobook_name = getBookNames(bookname=bookname)
 
     print('let us do a book check ',book)
