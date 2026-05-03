@@ -13,7 +13,11 @@ def getBookNamesAbbreviated(bookname="psalm"):
         bookname="leviticus"
     case "NUM":
         bookname="numbers"
+    case "DE":
+        bookname="deuteronomy"
     case "DEU":
+        bookname="deuteronomy"        
+    case "DEUT":
         bookname="deuteronomy"
     case "JOS":
         bookname="joshua"
