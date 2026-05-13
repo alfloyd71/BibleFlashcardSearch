@@ -21,7 +21,7 @@ Bible Flashcard Search (BFS) is an open-source flashcard application that enable
 
 ## Screenshots
 <p align="center">
-  <img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/edit-verses.jpg" alt="Edit Verses" width="300"><img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/study-boxes.jpg" alt="Study Boxes" width="300">
+  <img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/edit-verses.jpg" alt="Edit Verses" width="300">&nbsp;&nbsp;<img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/study-boxes.jpg" alt="Study Boxes" width="300">
 </p>
 
 ## Features
