@@ -1,27 +1,18 @@
-{% block head %}
- <!-- biblefs/card.html -->
- <link rel="stylesheet" href="/static/biblefs/css/box-styles.css">
+<!-- biblefs/card.html - Flashcard component for box study view -->
+<article id="box-article" class="flashcard" aria-label="Flashcard">
+  <p id="card-question" class="flashcard-question"></p>
 
-{% endblock head %}
-
-<article id="box-article">
-  <h4 id="card-question"></h4>
-  <p id="card-answer-transparent"></p>
-  
-  <details id="details-reveal-answer">
-      <summary>Reveal Answer</summary>
-      <p id="card-answer">{{ card.answer }}</p>
+  <details id="details-reveal-answer" class="flashcard-reveal">
+    <summary><span class="sr-only">Reveal the answer</span></summary>
+    <p id="card-answer" class="flashcard-answer">{{ card.answer }}</p>
   </details>
-  
-  <div class="flex-row">
-    <div> 
-      <a id="hyperlink-check" href="/nowhere"><image src="/static/biblefs/images/icons/check.png" aria-label="check yes" id="button-check"></a>
-    </div>
-    <div>
-      <a id="hyperlink-x" href="" role="button"><image src="/static/biblefs/images/icons/x.png" aria-label="x no" id="button-x"></a>
-    </div>
-          
-    <hr>
-      
+
+  <div class="flashcard-actions" role="group" aria-label="Rate your recall">
+    <button type="button" id="btn-check" class="btn btn-icon btn-success" aria-label="Correct - move card forward">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 448 512"><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+    </button>
+    <button type="button" id="btn-x" class="btn btn-icon btn-danger" aria-label="Incorrect - move card back to box 1">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+    </button>
+  </div>
 </article>
-</div>

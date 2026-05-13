@@ -1,37 +1,43 @@
-<section class="flashcards-container">
- <h2>Your Flashcards</h2>
- <div class="boxes">
-   <article class="box">
-     <h3><a id="first-box" href="{% url 'show_cards_main_stream' %}?box=1">Box 1 (New Material</a></h3>
-     <ul id="box1-list">
-       <!-- New flashcards here -->
-     </ul>
-   </article>
-   <article class="box">
-     <h3><a id="second-box" href="{% url 'show_cards_main_stream' %}?box=2">Box 2 (Review</a></h3>
-     <ul id="box2-list">
-       <!-- Review flashcards here -->
-     </ul>
-   </article>
-   <article class="box">
-     <h3><a id="third-box" href="{% url 'show_cards_main_stream' %}?box=3">Box 3 (Mastery</a></h3>
-     <ul id="box3-list">
-       <!-- Mastery flashcards here -->
-     </ul>
-   </article>
-   <article class="box">
-    <h3><a id="fourth-box" href="{% url 'show_cards_main_stream' %}?box=4">Box 4 (Mastery</a></h3>
-    <ul id="box4-list">
-      <!-- Review flashcards here -->
-    </ul>
-  </article>
-  <article class="box">
-    <h3><a id="fifth-box" href="{% url 'show_cards_main_stream' %}?box=5">Box 5 (Mastery</a></h3>
-    <ul id="box5-list">
-      <!-- Mastery flashcards here -->
-    </ul>
-  </article>
- </div>
+<!-- biblefs/box-navigation.html - Leitner box navigation -->
+<section class="boxes-section" aria-labelledby="boxes-heading">
+  <h2 id="boxes-heading">Study Boxes</h2>
+  <p style="color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+    Cards move through boxes as you learn them. Correct answers advance a card; incorrect answers send it back to Box 1.
+  </p>
+  <nav aria-label="Flashcard study boxes">
+    <div class="boxes-grid" role="list">
+      <div class="box-card box-1" role="listitem">
+        <a id="first-box" href="{% url 'show_cards_main_stream' %}?box=1" aria-label="Box 1: New Material">
+          <span>Box 1 &middot; New</span>
+          <span class="box-count" id="span-first-box" aria-label="card count">0</span>
+        </a>
+      </div>
+      <div class="box-card box-2" role="listitem">
+        <a id="second-box" href="{% url 'show_cards_main_stream' %}?box=2" aria-label="Box 2: Learning">
+          <span>Box 2 &middot; Learning</span>
+          <span class="box-count" id="span-second-box" aria-label="card count">0</span>
+        </a>
+      </div>
+      <div class="box-card box-3" role="listitem">
+        <a id="third-box" href="{% url 'show_cards_main_stream' %}?box=3" aria-label="Box 3: Review">
+          <span>Box 3 &middot; Review</span>
+          <span class="box-count" id="span-third-box" aria-label="card count">0</span>
+        </a>
+      </div>
+      <div class="box-card box-4" role="listitem">
+        <a id="fourth-box" href="{% url 'show_cards_main_stream' %}?box=4" aria-label="Box 4: Familiar">
+          <span>Box 4 &middot; Familiar</span>
+          <span class="box-count" id="span-fourth-box" aria-label="card count">0</span>
+        </a>
+      </div>
+      <div class="box-card box-5" role="listitem">
+        <a id="fifth-box" href="{% url 'show_cards_main_stream' %}?box=5" aria-label="Box 5: Mastered">
+          <span>Box 5 &middot; Mastered</span>
+          <span class="box-count" id="span-fifth-box" aria-label="card count">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 </section>
 
-<script src="/static/biblefs/js/tally-boxes.js" ></script>
+<script src="/static/biblefs/js/tally-boxes.js"></script>

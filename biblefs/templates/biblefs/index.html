@@ -1,73 +1,51 @@
 {% extends 'biblefs/base.html' %}
-{% load humanize %}
-{% block title %}
-  Bible Flashcard Search
-{% endblock title %}
-  
+
+{% block title %}All Cards - Bible Flashcards{% endblock title %}
+
 {% block description %}
-  <meta name="description" content="Search for any verse in the King James Version(KJV) of the Bible by verse number and then create a flashcard to be added to a flashcards list.">
+  <meta name="description" content="View and study your King James Version (KJV) Bible flashcards using the Leitner spaced-repetition system.">
 {% endblock description %}
-{% block head %}
-{% endblock head %}
 
 {% block content %}
-<header class="no-select">
-  <nav>
-   <div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div>
-   <div id="default-title" class="flex-col">
-     <!--<div class="app-title">
-       Bible Flashcard
-     </div>-->
-     <div class="flex-row-logo app-title">
-     <img class="custom-logo" src="/static/biblefs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
-     </div>
-   </div>
-  </nav> 
-</header>
-  <main class="no-select">
-   <div id="index-main">
-     <section class="hero">
-       <h2>All Cards</h2>
-       <div class="flex-row">
-         <div>
-           <a href="{% url 'edit_verses_main_stream' %}" role="button">
-             <button class="add-flashcard-btn">Create Card</button>
-           </a>
-         </div>
-        
-       </div>
-       <span id="insert-html-here"></span>
-     </section>  
-   </div>
+  <!-- All Cards View -->
+  <div id="index-main">
+    <section class="section-card" aria-labelledby="all-cards-heading">
+      <div class="box-header">
+        <h2 id="all-cards-heading">All Cards</h2>
+        <a href="{% url 'edit_verses_main_stream' %}" class="btn btn-primary">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512"><path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+          Create Card
+        </a>
+      </div>
+      <div id="insert-html-here" role="list" aria-label="Flashcard list">
+        <!-- Cards are injected by main.js -->
+      </div>
+      <div id="empty-state" class="empty-state hidden">
+        <p>You have no flashcards yet.</p>
+        <a href="{% url 'edit_verses_main_stream' %}" class="btn btn-primary">Create Your First Card</a>
+      </div>
+    </section>
+  </div>
 
-   <!-- html for box page goes here -->
-   <div id="boxes-main">
-     <section class="hero">
-       <div class="flex-row">
-        <div>
-          <a href="{% url 'show_cards_main_stream' %}" role="button">
-           <button class="add-flashcard-btn">All Cards</button>
-          </a> 
-        </div>
-        <div>
-          <a href="{% url 'edit_verses_main_stream' %}" role="button">
-            <button class="add-flashcard-btn">Create Card</button>
-           </a>
-        </div>   
-       </div>
-       <h3 id="boxnum"></h3>
-       <div id="show-card-container"> 
-         {% include 'biblefs/card.html' %}
-       </div> 
-     </section>
-   </div>
-   {% include 'biblefs/box-navigation.html' %}
- </main>
- <footer>
-  &copy;2025 YourWebsite.com 
- </footer>
+  <!-- Single Box View (hidden by default, shown via JS) -->
+  <div id="boxes-main" class="hidden" aria-live="polite">
+    <section class="section-card" aria-labelledby="box-view-heading">
+      <div class="box-header">
+        <h2 id="box-view-heading"><span id="boxnum"></span></h2>
+        <a href="{% url 'show_cards_main_stream' %}" class="btn btn-outline">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512"><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H109.2l105.4-105.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+          Back
+        </a>
+      </div>
+      <div id="show-card-container">
+        {% include 'biblefs/card.html' %}
+      </div>
+    </section>
+  </div>
+
+  {% include 'biblefs/box-navigation.html' %}
 {% endblock content %}
 
 {% block script %}
-  <script src="../../static/biblefs/js/main.js"></script>
+  <script src="/static/biblefs/js/main.js" defer></script>
 {% endblock script %}

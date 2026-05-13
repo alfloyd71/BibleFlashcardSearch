@@ -1,77 +1,54 @@
 {% extends 'biblefs/base.html' %}
 
-{% block title %}
-{{verse_text}}
-{% endblock title %}
+{% block title %}Create Card - Bible Flashcards{% endblock title %}
 
 {% block description %}
-    <meta name="description" content="This page allows you to personalize your KJV Bible flashcards to suit your preferences.">
+  <meta name="description" content="Search for any verse in the King James Version (KJV) and create a flashcard for spaced-repetition study.">
 {% endblock description %}
 
-{% block head %}
-{% endblock head %}
-
 {% block content %}
-<header class="no-select">
- <nav>
-  <!--<div id='main-stream-title' class="app-title hidden">Bible Flashcard Search</div> -->
-  <div id="default-title" class="flex-col">
-    <!--
-    <div class="app-title">
-      Bible Flashcard
-    </div>-->
-    <div class="flex-row-logo app-title">
-      <img class="custom-logo" src="/static/biblefs/images/icons/pwa/custom-logo.svg" alt="bfs logo">
+  <!-- Search Form -->
+  <section class="section-card" aria-labelledby="search-heading">
+    <h2 id="search-heading">Verse Search</h2>
+    <p>Look up any verse by reference (e.g., John 3:16, Ps 23:1, Rev 21:4).</p>
+
+    <form method="post" id="form-bible-flashcards" aria-describedby="search-help">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="text-verse">Verse Reference</label>
+        {{ form.verse }}
+        <p id="search-help" class="sr-only">Enter a Bible book name followed by chapter and verse, such as John 3:16</p>
+      </div>
+      <button type="submit" id="button-find-verse" class="btn btn-secondary">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+        Search
+      </button>
+    </form>
+  </section>
+
+  <!-- Verse Results -->
+  <section class="section-card" aria-labelledby="results-heading" aria-live="polite">
+    <h2 id="results-heading">Verse Result</h2>
+
+    <div class="verse-display">
+      <p id="verse-display" class="verse-text"><span id="verse-text">{{ verse_text }}</span></p>
+      <cite id="versereference" class="verse-reference">{{ versereference }}</cite>
     </div>
-  </div>
- </nav> 
-</header>
 
-<main class="no-select">
-  <section class="hero">
-   <div class="flex-row">
-     <div>
-       <a href="{% url 'show_cards_main_stream' %}" role="button">
-         <button class="add-flashcard-btn">All Cards</button>
-       </a>
-     </div>
-     
-   </div>
-   <span id="insert-html-here"></span>
- </section>  
- <section class="hero">
-   <h2>Verse Search</h2>
-   <p>Find any verse by reference (e.g., John 3:16).</p>
-   <form method = "post" id="form-bible-flashcards">
-    {% csrf_token %}
-    <!--  <fieldset class="border border-secondary p-2">   -->
-     <legend class="w-auto">Create Card</legend>
-     <label for="text-verse">Verse Reference:</label>
-     {{ form.verse }}
-     <button id="button-find-verse">Search</button>
-   </form>
- </section>
+    <div class="btn-group">
+      <button type="button" id="button-save-verse" class="btn btn-primary">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512"><path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+        Add to Flashcards
+      </button>
+      <button type="button" id="button-remove-verses" class="btn btn-danger">
+        Remove All Cards
+      </button>
+    </div>
+  </section>
 
- <section class="results">
-   <h2>Verse Results</h2>
-   <div class="verse-display flex-col">
-     <!-- The retrieved verse text will be displayed here -->
-     <div id="verse-display"><span id="verse-text">{{ verse_text }}</span></div>
-     <div id="versereference">{{ versereference }}</div>
-   </div>
-   <button id="button-save-verse" class="add-flashcard-btn">Add to Flashcards</button>
-   <button id="button-remove-verses" class="add-flashcard-btn">Remove All Verses</button>
- </section>
- 
- {% include 'biblefs/box-navigation.html' %}   
- 
-</main>
-
-<footer>
-  &copy;2025 YourWebsite.com 
-</footer>
+  {% include 'biblefs/box-navigation.html' %}
 {% endblock content %}
 
 {% block script %}
-  <script src="../../static/biblefs/js/edit-verses.js"></script>
+  <script src="/static/biblefs/js/edit-verses.js" defer></script>
 {% endblock script %}

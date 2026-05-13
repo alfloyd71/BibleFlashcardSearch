@@ -1,53 +1,44 @@
-const firstBox = document.getElementById("first-box")
-const secondBox = document.getElementById("second-box")
-const thirdBox = document.getElementById("third-box")
-const fourthBox = document.getElementById("fourth-box")
-const fifthBox = document.getElementById("fifth-box")
+/**
+ * Counts the cards in each Leitner box and updates the box-count badges in the UI.
+ * @param {Array} mycards - Array of card objects with a `box` property (1-5).
+ */
+function tallyBoxes(mycards) {
+  // Determine which globals instance is active
+  var flashCardGlobalsInstance = window.flashCardGlobalsInstance; // Declare flashCardGlobalsInstance
+  var editVersesGlobalsInstance = window.editVersesGlobalsInstance; // Declare editVersesGlobalsInstance
+  var globals = (typeof flashCardGlobalsInstance !== 'undefined' && flashCardGlobalsInstance)
+    ? flashCardGlobalsInstance
+    : (typeof editVersesGlobalsInstance !== 'undefined' && editVersesGlobalsInstance)
+      ? editVersesGlobalsInstance
+      : null;
 
-function tallyBoxes(mycards){
-  for(let i=0;i<mycards.length;i++){
-    for(let j=0;j<=4;j++){
-      if(mycards[i]['box']===j+1){
-       if(flashCardGlobalsInstance) flashCardGlobalsInstance.tallyBoxArry[j]+=1 
-       else if(editVersesGlobalsInstance) editVersesGlobalsInstance.tallyBoxArry[j]+=1
-      } 
+  var counts = [0, 0, 0, 0, 0];
+
+  for (var i = 0; i < mycards.length; i++) {
+    var box = mycards[i].box;
+    if (box >= 1 && box <= 5) {
+      counts[box - 1]++;
     }
   }
 
-  firstBox.innerHTML += `<span id="span-first-box"></span>`
-  secondBox.innerHTML += `<span id="span-second-box"></span>`
-  thirdBox.innerHTML += `<span id="span-third-box"></span>`
-  fourthBox.innerHTML += `<span id="span-fourth-box"></span>`
-  fifthBox.innerHTML += `<span id="span-fifth-box"></span>`
+  if (globals) {
+    globals.tallyBoxArry = counts;
+  }
 
-  const spanFirstBox=document.getElementById("span-first-box")
-  const spanSecondBox=document.getElementById("span-second-box")
-  const spanThirdBox=document.getElementById("span-third-box")
-  const spanFourthBox=document.getElementById("span-fourth-box")
-  const spanFifthBox=document.getElementById("span-fifth-box")
+  // Update the badge elements
+  var ids = [
+    'span-first-box',
+    'span-second-box',
+    'span-third-box',
+    'span-fourth-box',
+    'span-fifth-box'
+  ];
 
-  spanFirstBox.style.color="black"
-  spanFirstBox.style.backgroundColor="yellow"
-  if(flashCardGlobalsInstance) spanFirstBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[0]})`
-  else if(editVersesGlobalsInstance) spanFirstBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[0]})`
-
-  spanSecondBox.style.color="black"
-  spanSecondBox.style.backgroundColor="yellow"
-  if(flashCardGlobalsInstance) spanSecondBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[1]})`
-  else if(editVersesGlobalsInstance) spanSecondBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[1]})`
-
-  spanThirdBox.style.color="black"
-  spanThirdBox.style.backgroundColor="yellow"
-  if(flashCardGlobalsInstance) spanThirdBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[2]})`
-  else if(editVersesGlobalsInstance) spanThirdBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[2]})`
-
-  spanFourthBox.style.color="black"
-  spanFourthBox.style.backgroundColor="yellow"
-  if(flashCardGlobalsInstance) spanFourthBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[3]})`
-  else if(editVersesGlobalsInstance) spanFourthBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[3]})`
-
-  spanFifthBox.style.color="black"
-  spanFifthBox.style.backgroundColor="yellow"
-  if(flashCardGlobalsInstance) spanFifthBox.innerHTML=` ${flashCardGlobalsInstance?.tallyBoxArry[4]})`
-  else if(editVersesGlobalsInstance) spanFifthBox.innerHTML=` ${editVersesGlobalsInstance?.tallyBoxArry[4]})`
- }
+  for (var j = 0; j < ids.length; j++) {
+    var el = document.getElementById(ids[j]);
+    if (el) {
+      el.textContent = counts[j];
+      el.setAttribute('aria-label', counts[j] + ' card' + (counts[j] !== 1 ? 's' : ''));
+    }
+  }
+}

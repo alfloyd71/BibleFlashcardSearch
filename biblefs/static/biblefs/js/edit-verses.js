@@ -1,154 +1,70 @@
-let editVersesGlobalsInstance;
-let flashCardGlobalsInstance;
-function runEditVersesMain(){
-  
-  
-   function handleSave(event) {
-    event.preventDefault();
-    saveToLocalStorage();
-    window.location.reload();
-  }
-  
-  function handleRemove(event) {
-    event.preventDefault();
-    clearLocS();
+/**
+ * edit-verses.js - Controls the Create Card (edit-verses) page.
+ *
+ * Handles saving a searched verse to localStorage flashcards,
+ * and removing all flashcards.
+ *
+ * Depends on: flashcard-globals.js (EditVersesGlobals, FlashCardGlobals, tallyBoxes)
+ */
 
-    window.location.reload();
-  }
-  
-  const saveBtn = document.querySelector('#button-save-verse');
-  const removeBtn = document.querySelector('#button-remove-verses');
-  
-  saveBtn.addEventListener('pointerup', handleSave);
-  removeBtn.addEventListener('pointerup', handleRemove);
-  
+var editVersesGlobalsInstance;
+var flashCardGlobalsInstance;
 
-  let mycards
-  const preloadQuestions=()=>{
-    mycards = [
-      {question:"And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away.",
-      answer:"Revelation 21:4", box:1},
-      {question:"I can do all things through Christ which strengtheneth me.",
-      answer:"Philippians 4:13 KJV", box:4},
-      {question:"Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
-      answer:"Proverbs 3:5 KJV", box:4},
-      
-
-  ];
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
 }
 
-const capitalizeWords=(inputString)=>{
-  return inputString.replace(/\b\w/g, function(match) {
-    return match.toUpperCase();
-});
-}
+function runEditVersesMain() {
+  var verseText = document.getElementById('verse-text').textContent;
+  editVersesGlobalsInstance.reference = document.getElementById('versereference').textContent;
 
-window.onload = function () {
-preloadQuestions()
+  var mycards = JSON.parse(localStorage.getItem('bible-flash-cards')) || [];
+  editVersesGlobalsInstance.parsedVerses = mycards;
 
-editVersesGlobalsInstance.inputArea=document.getElementById('questions-input-area')
-verseText=document.getElementById('verse-text').innerHTML
-editVersesGlobalsInstance.reference=document.getElementById('versereference').innerHTML
+  tallyBoxes(mycards);
 
-editVersesGlobalsInstance.versesToAppend=[{'question':'And I stood upon the sand of the sea, and saw a beast rise up out of the sea, having seven heads \
- and ten horns, and upon his horns ten crowns, and upon his heads the name of blasphemy.','answer':'Revelation 13:1'},
- {'question':'test question','answer':'answered question',   }]
+  var saveBtn = document.getElementById('button-save-verse');
+  saveBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    var ref = capitalizeWords(editVersesGlobalsInstance.reference);
+    var alreadyExists = false;
 
-
-editVersesGlobalsInstance.versesToAppend=JSON.parse(localStorage.getItem('bible-flash-cards')) || []
-mycards=editVersesGlobalsInstance.versesToAppend
-
-editVersesGlobalsInstance.parsedVerses=editVersesGlobalsInstance.versesToAppend// converts editVersesGlobalsInstance.versesToAppend from a string to an array
-
-tallyBoxes(mycards)
-
-
-
-// Using a for loop to iterate over the array
-try{
-  for (let i = 0; i < editVersesGlobalsInstance.parsedVerses.length; i++) {
-    // no need to delcare .question and .answer just reference editVersesGlobalsInstance.parsedVerses[i]
-    // Accessing each element using the index i
-    editVersesGlobalsInstance.strmyFlashCards=JSON.stringify(mycards)
-    if(editVersesGlobalsInstance.strmyFlashCards.includes(editVersesGlobalsInstance.parsedVerses[i].answer)){
-      console.log('verse already exists in mycards')
-    }
-    else{
-      mycards.push(editVersesGlobalsInstance.parsedVerses[i])
-      console.log('not in mycards appending')
-    }
-    
-    }
- }
- catch (error){
-  console.error("An error occurred:", error.message);
- }
-  
-
-  
-}
-
-function clearLocS(){
-  const confirmRemoveAll=window.confirm("Would you like to remove all of the verses from your flashcards?")
-  if(confirmRemoveAll){
-    localStorage.clear();
-    window.alert("All flashcards have been removed from your web browser")
-  }
-}
-
-function saveToLocalStorage(){
-  let match=false
-  try{
-    editVersesGlobalsInstance.reference=capitalizeWords(editVersesGlobalsInstance.reference)
-    for (let i=0;i<editVersesGlobalsInstance.parsedVerses.length;i++){
-      if(editVersesGlobalsInstance.parsedVerses[i].answer===editVersesGlobalsInstance.reference){
-        match=true
+    for (var i = 0; i < mycards.length; i++) {
+      if (mycards[i].answer === ref) {
+        alreadyExists = true;
+        break;
       }
-     }
-  } 
-  catch (error){
-    console.error("An error occurred:", error.message);
-  }
-  finally {
-    // Code that will always be executed
-    console.log("This will be executed no matter what.");
-  }
-
-  if(match===false){
-    const confirmSaveVerse = window.confirm(`Would you like to save ${editVersesGlobalsInstance.reference} to your flashcards list?`) 
-    if(confirmSaveVerse){
-      mycards.push({'question':verseText,'answer':editVersesGlobalsInstance.reference,'box':1})
-      window.alert(`${editVersesGlobalsInstance.reference} has been added to your flashcards list.`)
     }
-   
-  }
-  else{
-    window.alert(`${editVersesGlobalsInstance.reference} has already been added to your flashcards list.`)        
-  }
 
-  // localStorage.clear() clears everything stored in the localStorage for the current domain.
-  localStorage.setItem('bible-flash-cards',JSON.stringify(mycards))//convert mycards  back into a string
+    if (alreadyExists) {
+      window.alert(ref + ' is already in your flashcards.');
+      return;
+    }
 
+    var confirmed = window.confirm('Add ' + ref + ' to your flashcards?');
+    if (confirmed) {
+      mycards.push({ question: verseText, answer: ref, box: 1 });
+      localStorage.setItem('bible-flash-cards', JSON.stringify(mycards));
+      window.alert(ref + ' has been added to your flashcards.');
+      tallyBoxes(mycards);
+    }
+  });
 
-// end saveToLocalStorage()
+  var removeBtn = document.getElementById('button-remove-verses');
+  removeBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    var confirmed = window.confirm('Remove ALL flashcards? This cannot be undone.');
+    if (confirmed) {
+      localStorage.removeItem('bible-flash-cards');
+      mycards.length = 0;
+      window.alert('All flashcards have been removed.');
+      tallyBoxes(mycards);
+    }
+  });
 }
 
-const btnFindVerse = document.querySelector('#button-find-verse')
-const buttonSaveVerse = document.querySelector('#button-save-verse')
-const btnRemoveVerses = document.querySelector('#button-remove-verses')
-btnFindVerse.setAttribute('data-button-text', btnFindVerse.textContent)
-buttonSaveVerse.setAttribute('data-button-text', buttonSaveVerse.textContent)
-btnRemoveVerses.setAttribute('data-button-text', btnRemoveVerses.textContent)
-}
-
-
-
-document.addEventListener('DOMContentLoaded', () =>{
- flashCardGlobalsInstance = new FlashCardGlobals();
- editVersesGlobalsInstance = new EditVersesGlobals();
-
- editVersesGlobalsInstance.pageReloaded = true;
- runEditVersesMain();
- 
-//end DOMContentLoaded event listener
-})
+document.addEventListener('DOMContentLoaded', function () {
+  flashCardGlobalsInstance = new FlashCardGlobals();
+  editVersesGlobalsInstance = new EditVersesGlobals();
+  runEditVersesMain();
+});

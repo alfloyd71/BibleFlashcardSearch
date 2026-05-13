@@ -1,69 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Bible Flashcards{% endblock title %}</title>
+  {% block description %}
+    <meta name="description" content="A spaced-repetition Bible flashcard app using the King James Version (KJV).">
+  {% endblock description %}
+  <link rel="icon" href="/static/biblefs/images/icons/pwa/favicon.ico">
+  <!--<link rel="manifest" href="/static/biblefs/site.webmanifest">-->
 
-  <head>
-    <title>
-    {% block title %}
-    {% endblock title %}
-    </title>
-    {% block description %}
-    {% endblock description %}
-   
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/static/biblefs/images/icons/pwa/favicon.ico">
-    
-    <link id ="manifest" rel="manifest" href="/static/biblefs/site.webmanifest">
-    
-    <!-- Default Theme -->
-     <!--<link id="styles1" rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <link id="styles2" rel="stylesheet" href="/static/biblefs/css/android-app-styles.css">    -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-    
-    
-    <link rel= "stylesheet" href="/static/biblefs/css/main-stream-styles.css">
-    <link rel="stylesheet" href="/static/biblefs/css/index-styles.css">
-        
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/biblefs/css/main-stream-styles.css">
 
-    <!-- scripts -->
-    <script src="../../static/biblefs/js/flashcard-globals.js"></script>
-    <script src="/static/biblefs/js/pluralize.js"></script>
+  <!-- Shared JS -->
+  <script src="/static/biblefs/js/flashcard-globals.js" defer></script>
+  <script src="/static/biblefs/js/pluralize.js" defer></script>
 
-    <script nonce="{{ request.csp_nonce }}">
-     if ('serviceWorker' in navigator) {
-       navigator.serviceWorker.getRegistrations().then((registrations) => {
-         for (let registration of registrations) {
-           registration.unregister();
-           console.log('Service worker unregistered.');
-         }
-       });
+  {% block head %}{% endblock head %}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-       navigator.serviceWorker.register('/service-worker.js')
-         .then((registration) => {
-           console.log('Service Worker registered with scope:', registration.scope);
-         })
-         .catch((error) => {
-           console.error('Service Worker registration failed:', error);
-         });
-     }
-   </script> 
-    
-    {% block head %}
-    {% endblock head %}
+  <header role="banner">
+    <nav aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a href="/biblefs" class="logo-link" aria-label="Bible Flashcards home">
+          <img class="logo-icon" src="/static/biblefs/images/custom-logo.svg" alt="" width="32" height="32">
+          <span class="logo-text">Bible Flashcards</span>
+        </a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <svg class="icon-menu" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zm0 160c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm448 160c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"/></svg>
+          <svg class="icon-close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 384 512"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256l105.3-105.4z"/></svg>
+        </button>
+        <ul id="nav-menu" class="nav-links" role="list">
+          <li><a href="/biblefs" class="nav-link">All Cards</a></li>
+          <li><a href="/biblefs/edit-verses/" class="nav-link">Create Card</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-  </head>
+  <main id="main-content" role="main">
+    {% block content %}{% endblock content %}
+  </main>
 
-  <body>
+  <footer role="contentinfo">
+    <p>&copy; 2026 Bible Flashcard Search</p>
+  </footer>
 
-    {% block content %}     
-    {% endblock content %}
+  {% block script %}{% endblock script %}
 
-    {% block footer %}
-    {% endblock footer %}
-      
-    {% block script %}
-    {% endblock script %}
-
-  </body>
-
+  <script>
+    // Mobile nav toggle
+    (function() {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function() {
+        var expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('is-open');
+      });
+      // Close menu on link click (mobile)
+      menu.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('is-open');
+        });
+      });
+    })();
+  </script>
+</body>
 </html>
