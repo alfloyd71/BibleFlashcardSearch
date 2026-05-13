@@ -20,8 +20,9 @@
 Bible Flashcard Search (BFS) is an open-source flashcard application that enables users to search for any verse in the King James Version (KJV) of the Bible by verse reference and create flashcards to be added to a personalized flashcard list. The application implements the **Leitner System** (flashcard box system) that organizes and uses flashcards in a systematic way to enhance learning through spaced repetition.
 
 ## Screenshots
-<img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/edit-verses.jpg" alt="Edit Verses" width="300">
-<img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/study-boxes.jpg" alt="Study Boxes" width="300">
+<p align="center">
+  <img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/edit-verses.jpg" alt="Edit Verses" width="300"><img src="https://www.freesmartphoneapps.com/static/biblefs/images/screenshots/study-boxes.jpg" alt="Study Boxes" width="300">
+</p>
 
 ## Features
 
