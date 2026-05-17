@@ -149,6 +149,8 @@ def getBookNamesAbbreviated(bookname="psalm"):
         bookname="malachi"
 
     #New Testament 
+    case "MT":
+        bookname="matthew"
     case "MAT":
         bookname="matthew"
     case "MAR":
